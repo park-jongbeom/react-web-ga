@@ -16,3 +16,10 @@
 - Write code comments in Korean when needed
 - Use meaningful Korean variable names when appropriate
 - Keep code readability as a priority
+
+# SaaS 보안 코딩 규칙
+모든 코드 생성 시 다음 가이드라인을 엄격히 준수할 것:
+1. 입력값 검증은 항상 'Zod'를 사용하여 런타임 타입을 보장한다.
+2. API 통신 시 Axios Interceptor에서 Auth 및 Tenant ID를 관리한다.
+3. 에러 처리는 'Error Boundary'를 통해 시스템 정보를 은닉한다.
+4. 모든 보안 관련 설정은 /docs/security_manifest.md의 최신본을 참조한다.

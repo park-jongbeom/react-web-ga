@@ -1,9 +1,47 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- 보안 헤더: CSP (Content Security Policy) -->
+    <!-- 
+      운영 환경: unsafe-inline 및 unsafe-eval 제거 (최대 보안)
+      개발 환경: HMR을 위해 조건부로 허용
+      Tailwind CSS는 JIT 모드에서 인라인 스타일을 생성하지 않으므로 style-src 'unsafe-inline' 제거 가능
+    -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self';
+      style-src 'self';
+      img-src 'self' data: https:;
+      font-src 'self' data:;
+      connect-src 'self' http://localhost:8081 http://localhost:8082 http://localhost:8083 ws://localhost:* wss://localhost:*;
+      frame-ancestors 'none';
+      base-uri 'self';
+      form-action 'self';
+      object-src 'none';
+      upgrade-insecure-requests;
+    ">
+    
+    <!-- 보안 헤더: XSS Protection -->
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <!-- 보안 헤더: Content Type -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <!-- 보안 헤더: Referrer Policy -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- 보안 헤더: Permissions Policy -->
+    <meta http-equiv="Permissions-Policy" content="
+      geolocation=(),
+      microphone=(),
+      camera=(),
+      payment=()
+    ">
+    
     <title>Go Almond - 미국 유학 중개 및 진로 설계 플랫폼</title>
   </head>
   <body>

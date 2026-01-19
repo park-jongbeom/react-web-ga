@@ -1,6 +1,23 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { logout } from '../api/AuthService'
 
 function Header() {
+  const { isAuthenticated, clearAuth, user } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async () => {
+    try {
+      await logout()
+      clearAuth()
+      navigate('/login')
+    } catch (error) {
+      // 에러 발생해도 로그아웃 처리
+      clearAuth()
+      navigate('/login')
+    }
+  }
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
       <div className="container mx-auto px-4 py-4">
@@ -26,15 +43,36 @@ function Header() {
             >
               홈
             </Link>
-            <Link
-              to="/dashboard"
-              className="text-gray-600 hover:text-primary-600 font-medium transition-colors"
-            >
-              대시보드
-            </Link>
-            <button className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium">
-              로그인
-            </button>
+            {isAuthenticated && (
+              <Link
+                to="/dashboard"
+                className="text-gray-600 hover:text-primary-600 font-medium transition-colors"
+              >
+                대시보드
+              </Link>
+            )}
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-4">
+                {user && (
+                  <span className="text-gray-600 text-sm">
+                    {user.email}
+                  </span>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors font-medium"
+                >
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
+              >
+                로그인
+              </Link>
+            )}
           </nav>
         </div>
       </div>
