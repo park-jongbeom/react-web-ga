@@ -7,7 +7,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+# TODO: package-lock.json 업데이트 후 npm ci로 변경 권장
+# npm ci는 package-lock.json과 package.json이 동기화되어 있을 때 사용
+RUN npm install --legacy-peer-deps
 
 # Copy source code
 COPY . .
