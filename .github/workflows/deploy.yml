@@ -47,11 +47,43 @@ jobs:
 
       - name: Add server to known hosts
         run: |
-          ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
+          # 환경 변수 검증
+          if [ -z "${{ env.SERVER_HOST }}" ]; then
+            echo "Error: SERVER_HOST is not set"
+            exit 1
+          fi
+          
+          # SSH 포트 설정 (기본 22번, 필요시 SSH_PORT 환경 변수로 변경 가능)
+          SSH_PORT=${SSH_PORT:-22}
+          
+          # .ssh 디렉토리 생성
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          
+          # ssh-keyscan 실행 (타임아웃 10초)
+          echo "Scanning SSH keys for ${{ env.SERVER_HOST }}:$SSH_PORT"
+          if ssh-keyscan -T 10 -p $SSH_PORT -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts 2>&1; then
+            echo "Successfully added server to known_hosts"
+          else
+            echo "Warning: ssh-keyscan failed, but continuing with StrictHostKeyChecking=no..."
+            # 실패해도 계속 진행 (SSH 연결 시 StrictHostKeyChecking=no 사용)
+          fi
+          
+          chmod 600 ~/.ssh/known_hosts
 
       - name: Deploy to Lightsail
         run: |
-          ssh ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << EOF
+          # 환경 변수 검증
+          if [ -z "${{ env.SERVER_HOST }}" ] || [ -z "${{ env.SERVER_USER }}" ]; then
+            echo "Error: SERVER_HOST or SERVER_USER is not set"
+            exit 1
+          fi
+          
+          # SSH 포트 설정
+          SSH_PORT=${SSH_PORT:-22}
+          
+          # SSH 연결 (StrictHostKeyChecking=no로 keyscan 실패 시에도 연결 가능)
+          ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30 -p $SSH_PORT ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << EOF
             # Set variables
             IMAGE_NAME="${{ env.IMAGE_NAME }}"
             DOCKER_HUB_USERNAME="${{ env.DOCKER_HUB_USERNAME }}"
