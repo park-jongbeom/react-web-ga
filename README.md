@@ -1,4 +1,4 @@
-# Go Almond Frontend
+# React Web GA
 
 미국 유학 중개 및 진로 설계 통합 플랫폼의 프론트엔드 애플리케이션입니다.
 
@@ -13,7 +13,7 @@
 ## 프로젝트 구조
 
 ```
-frontend/
+react-web-ga/
 ├── src/
 │   ├── components/      # 재사용 가능한 컴포넌트
 │   │   ├── Header.tsx   # 헤더 컴포넌트
