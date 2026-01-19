@@ -10,7 +10,8 @@
  * - 테넌트 격리: 테넌트 정보 확인
  */
 
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
+import type { ReactNode } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { isTokenExpired } from '../utils/security'

@@ -13,18 +13,21 @@ import type { ApiResponse } from '../types/api'
 
 /**
  * Audit Action 타입
+ * erasableSyntaxOnly 설정으로 인해 enum 대신 const object 사용
  */
-export enum AuditAction {
-  LOGIN_SUCCESS = 'LOGIN_SUCCESS',
-  LOGIN_FAILURE = 'LOGIN_FAILURE',
-  LOGOUT = 'LOGOUT',
-  TOKEN_REFRESH = 'TOKEN_REFRESH',
-  CREATE = 'CREATE',
-  UPDATE = 'UPDATE',
-  DELETE = 'DELETE',
-  READ = 'READ',
-  UNAUTHORIZED_ACCESS = 'UNAUTHORIZED_ACCESS',
-}
+export const AuditAction = {
+  LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+  LOGIN_FAILURE: 'LOGIN_FAILURE',
+  LOGOUT: 'LOGOUT',
+  TOKEN_REFRESH: 'TOKEN_REFRESH',
+  CREATE: 'CREATE',
+  UPDATE: 'UPDATE',
+  DELETE: 'DELETE',
+  READ: 'READ',
+  UNAUTHORIZED_ACCESS: 'UNAUTHORIZED_ACCESS',
+} as const
+
+export type AuditAction = typeof AuditAction[keyof typeof AuditAction]
 
 /**
  * Audit Log 요청 데이터
@@ -222,7 +225,7 @@ export const logUnauthorizedAccess = async (
  * 범용 리소스 액션 Audit Log
  */
 export const logResourceAction = async (
-  action: AuditAction.CREATE | AuditAction.UPDATE | AuditAction.DELETE | AuditAction.READ,
+  action: typeof AuditAction.CREATE | typeof AuditAction.UPDATE | typeof AuditAction.DELETE | typeof AuditAction.READ,
   resource: string,
   resourceId: string,
   userId: string,

@@ -11,13 +11,13 @@
  * - Audit Log: 로그인 시도 기록
  */
 
-import { useState, useEffect, FormEvent } from 'react'
+import { useState, useEffect } from 'react'
+import type { FormEvent } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { login } from '../api/AuthService'
 import {
   loginRequestSchema,
-  type LoginRequest,
 } from '../utils/validation'
 import {
   sanitizeInput,

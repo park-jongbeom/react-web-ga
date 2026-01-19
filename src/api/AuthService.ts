@@ -31,7 +31,6 @@ import {
   type RefreshRequest as ZodRefreshRequest,
 } from '../utils/validation'
 import {
-  sanitizeInput,
   checkLoginAttempts,
   recordLoginAttempt,
   setToken,

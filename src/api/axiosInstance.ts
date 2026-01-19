@@ -9,7 +9,8 @@
  * - 에러 노출 차단: 일반화된 에러 메시지
  */
 
-import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from 'axios'
+import axios, { type AxiosError } from 'axios'
+import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
 // 환경 변수에서 포트 번호 가져오기
 const AUTH_API_PORT = import.meta.env.VITE_AUTH_API_PORT || '8081'

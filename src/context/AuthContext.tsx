@@ -8,7 +8,8 @@
  * - 최소 권한 원칙
  */
 
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
+import type { ReactNode } from 'react'
 import { getAccessToken, getRefreshToken, clearTokens as clearTokensUtil, setToken as setTokenUtil, decodeJwtPayload } from '../utils/security'
 
 interface User {

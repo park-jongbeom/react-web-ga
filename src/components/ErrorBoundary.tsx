@@ -8,7 +8,8 @@
  * - 보안 에러 처리
  */
 
-import React, { Component, ReactNode } from 'react'
+import React, { Component } from 'react'
+import type { ReactNode } from 'react'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -58,23 +59,17 @@ const sanitizeErrorInfo = (error: Error, errorInfo: React.ErrorInfo): {
   message: string
   componentStack: string
 } => {
-  // 스택 트레이스에서 파일 경로, 라인 번호 등 민감한 정보 제거
-  const sanitizedStack = error.stack
-    ? error.stack
-        .split('\n')
-        .slice(0, 1) // 첫 번째 라인만 유지 (에러 타입 및 메시지)
-        .join('\n')
-    : ''
-
   // 컴포넌트 스택에서 민감한 정보 필터링
   const sanitizedComponentStack = errorInfo.componentStack
-    .split('\n')
-    .slice(0, 3) // 처음 3줄만 유지
-    .map((line) => {
-      // 파일 경로 제거
-      return line.replace(/\(.*\)/g, '').trim()
-    })
-    .join('\n')
+    ? errorInfo.componentStack
+        .split('\n')
+        .slice(0, 3) // 처음 3줄만 유지
+        .map((line) => {
+          // 파일 경로 제거
+          return line.replace(/\(.*\)/g, '').trim()
+        })
+        .join('\n')
+    : ''
 
   return {
     message: filterErrorMessage(error),
