@@ -1,0 +1,18 @@
+# Cursor Rules for this project
+
+## Commit Messages
+- All commit messages should be written in Korean (한글)
+- Use clear and descriptive Korean commit messages
+- Follow conventional commit format in Korean:
+  - feat: 새 기능 추가
+  - fix: 버그 수정
+  - docs: 문서 수정
+  - style: 코드 포맷팅, 세미콜론 누락 등
+  - refactor: 코드 리팩토링
+  - test: 테스트 코드 추가
+  - chore: 빌드 업무 수정, 패키지 매니저 설정 등
+
+## Code Style
+- Write code comments in Korean when needed
+- Use meaningful Korean variable names when appropriate
+- Keep code readability as a priority
