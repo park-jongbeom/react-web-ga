@@ -56,20 +56,35 @@ jobs:
           # SSH 포트 설정 (기본 22번, 필요시 SSH_PORT 환경 변수로 변경 가능)
           SSH_PORT=${SSH_PORT:-22}
           
-          # .ssh 디렉토리 생성
+          # .ssh 디렉토리 생성 및 권한 설정
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
+          echo "SSH directory created and permissions set"
+          
+          # known_hosts 파일이 없으면 생성하고 권한 설정
+          if [ ! -f ~/.ssh/known_hosts ]; then
+            touch ~/.ssh/known_hosts
+            echo "Created known_hosts file"
+          fi
+          
+          # 파일 쓰기 권한 보장 (644: 소유자 읽기/쓰기, 그룹/기타 읽기)
+          chmod 644 ~/.ssh/known_hosts
+          echo "Set permissions for known_hosts file"
           
           # ssh-keyscan 실행 (타임아웃 10초)
           echo "Scanning SSH keys for ${{ env.SERVER_HOST }}:$SSH_PORT"
           if ssh-keyscan -T 10 -p $SSH_PORT -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts 2>&1; then
             echo "Successfully added server to known_hosts"
+            # 실행 후 권한 재설정 (보안을 위해 644 유지)
+            chmod 644 ~/.ssh/known_hosts
           else
-            echo "Warning: ssh-keyscan failed, but continuing with StrictHostKeyChecking=no..."
-            # 실패해도 계속 진행 (SSH 연결 시 StrictHostKeyChecking=no 사용)
+            echo "Warning: ssh-keyscan failed, but continuing with StrictHostKeyChecking=accept-new..."
+            echo "SSH connection will use StrictHostKeyChecking=accept-new option"
+            # 실패해도 계속 진행 (SSH 연결 시 StrictHostKeyChecking=accept-new 사용)
           fi
           
-          chmod 600 ~/.ssh/known_hosts
+          # 최종 권한 확인
+          ls -la ~/.ssh/known_hosts || echo "known_hosts file does not exist"
 
       - name: Deploy to Lightsail
         run: |
