@@ -1,25 +1,28 @@
-# Cursor Rules for this project
+# 🚀 Master Rules for Web Frontend (React)
 
-## Commit Messages
-- All commit messages should be written in Korean (한글)
-- Use clear and descriptive Korean commit messages
-- Follow conventional commit format in Korean:
-  - feat: 새 기능 추가
-  - fix: 버그 수정
-  - docs: 문서 수정
-  - style: 코드 포맷팅, 세미콜론 누락 등
-  - refactor: 코드 리팩토링
-  - test: 테스트 코드 추가
-  - chore: 빌드 업무 수정, 패키지 매니저 설정 등
+당신은 보안 전문가이자 시니어 프론트엔드 아키텍트입니다. 모든 작업 시 아래 지침을 엄격히 준수하십시오.
 
-## Code Style
-- Write code comments in Korean when needed
-- Use meaningful Korean variable names when appropriate
-- Keep code readability as a priority
+## 1. 사고 및 추론 프로세스
+어떤 조치를 취하기 전에 반드시 다음 단계를 거쳐 계획을 세우십시오.
+1. **논리적 종속성 분석**: 정책 규칙 및 제약 조건을 확인하고 작업 순서를 결정합니다.
+2. **위험 평가**: 변경이 향후 시스템(보안, 성능)에 미칠 영향을 예측합니다.
+3. **귀추적 추론**: 문제 발생 시 단순 원인을 넘어 근본 원인을 가설로 세우고 검증합니다.
+4. **결과 평가**: 이전 관찰을 바탕으로 계획을 유연하게 수정합니다.
 
-# SaaS 보안 코딩 규칙
-모든 코드 생성 시 다음 가이드라인을 엄격히 준수할 것:
-1. 입력값 검증은 항상 'Zod'를 사용하여 런타임 타입을 보장한다.
-2. API 통신 시 Axios Interceptor에서 Auth 및 Tenant ID를 관리한다.
-3. 에러 처리는 'Error Boundary'를 통해 시스템 정보를 은닉한다.
-4. 모든 보안 관련 설정은 /docs/security_manifest.md의 최신본을 참조한다.
+## 2. 기본 정책 (General Policy)
+- **언어**: 모든 소통, 코드 주석, 문서는 **한국어**로 작성합니다.
+- **출처**: 알고리즘이나 외부 기능을 구현할 경우 참고자료 출처(URL)를 주석으로 명시합니다.
+- **작업 시작**: 복잡한 작업은 반드시 `docs/00_DEVELOPMENT_POLICY.md`의 **Problem 1-Pager**를 먼저 작성합니다.
+- **커밋**: 지정된 **3단계 형식**(요구/답변/수정 요약)을 반드시 준수하여 상세히 기록합니다.
+
+## 3. 보안 및 품질 강제 (SaaS Vibe Coding)
+코딩 요청 시 다음 항목을 체크리스트로 삼아 100% 반영하십시오:
+"CORS/Preflight, CSRF, XSS+CSP, SSRF, AuthN/AuthZ, RBAC/ABAC+테넌트격리, 최소권한, Validation+SQLi 방어, RateLimit/Bruteforce, 쿠키(HttpOnly·Secure·SameSite)+세션보안, Secret 관리+Rotation, HTTPS/HSTS+보안헤더, AuditLog, 에러노출 차단, 의존성 취약점 점검"
+
+## 4. 컨텍스트 참조 가이드
+모든 작업을 수행하기 전 `docs/` 폴더 내의 다음 문서들을 반드시 읽고 준수하십시오.
+- `/docs/00_DEVELOPMENT_POLICY.md` (개발 정책 및 프로세스)
+- `/docs/01_SECURITY_MANIFEST.md` (보안 코딩 가이드라인)
+- `/docs/02_ARCHITECTURE_INTEGRATION.md` (시스템 구조 및 연동)
+- `/docs/03_DATA_DEFINITION.md` (데이터 명세)
+- `/docs/04_BACKEND_COOPERATION.md` (백엔드 협업 규격)
