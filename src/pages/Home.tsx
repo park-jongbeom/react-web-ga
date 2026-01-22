@@ -1,6 +1,104 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { aiConsultData, type AiConsultMessage } from '../data/aiConsultMock'
 
 function Home() {
+  const [messages, setMessages] = useState<AiConsultMessage[]>(
+    aiConsultData.messages
+  )
+  const [input, setInput] = useState('')
+
+  useEffect(() => {
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: 'debug-session',
+        runId: 'pre-fix',
+        hypothesisId: 'H1',
+        location: 'Home.tsx:init',
+        message: 'AI 상담 초기 상태',
+        data: {
+          title: aiConsultData.title,
+          suggestedCount: aiConsultData.suggestedPrompts.length,
+          initialMessageCount: aiConsultData.messages.length,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {})
+    // #endregion
+  }, [])
+
+  const handleSend = () => {
+    const trimmed = input.trim()
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: 'debug-session',
+        runId: 'pre-fix',
+        hypothesisId: 'H2',
+        location: 'Home.tsx:handleSend:pre',
+        message: '전송 클릭 전 입력값',
+        data: { inputLength: input.length, trimmedLength: trimmed.length },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {})
+    // #endregion
+    if (!trimmed) return
+
+    const now = Date.now()
+    const userMessage: AiConsultMessage = {
+      id: `user-${now}`,
+      role: 'user',
+      content: trimmed,
+    }
+    const assistantMessage: AiConsultMessage = {
+      id: `assistant-${now}`,
+      role: 'assistant',
+      content: `요청하신 내용(${trimmed})을 바탕으로 예산/성적/목표 전공 정보를 알려주시면 구체적인 경로를 추천드릴게요.`,
+    }
+
+    setMessages((prev) => [...prev, userMessage, assistantMessage])
+    setInput('')
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: 'debug-session',
+        runId: 'pre-fix',
+        hypothesisId: 'H2',
+        location: 'Home.tsx:handleSend:post',
+        message: '메시지 추가 후 예상 길이',
+        data: { nextMessageCount: messages.length + 2 },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {})
+    // #endregion
+  }
+
+  const handleSuggestedPrompt = (prompt: string) => {
+    setInput(prompt)
+    // #region agent log
+    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sessionId: 'debug-session',
+        runId: 'pre-fix',
+        hypothesisId: 'H3',
+        location: 'Home.tsx:handleSuggestedPrompt',
+        message: '추천 질문 클릭',
+        data: { promptLength: prompt.length },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {})
+    // #endregion
+  }
+
   return (
     <div className="space-y-16">
       {/* Hero Section */}
@@ -144,6 +242,82 @@ function Home() {
             >
               Go ALMOND
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Consult Section */}
+      <section id="ai-consult" className="py-16">
+        <div className="bg-white rounded-xl shadow-md p-8">
+          <div className="flex flex-col gap-8 lg:flex-row">
+            <div className="lg:w-1/2 space-y-4">
+              <h2 className="text-3xl font-bold text-gray-900">
+                {aiConsultData.title}
+              </h2>
+              <p className="text-gray-600">{aiConsultData.description}</p>
+              <div>
+                <p className="text-sm font-semibold text-gray-700 mb-3">
+                  추천 질문
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {aiConsultData.suggestedPrompts.map((prompt) => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => handleSuggestedPrompt(prompt)}
+                      className="rounded-full border border-primary-200 bg-primary-50 px-4 py-2 text-sm text-primary-700 hover:bg-primary-100 transition-colors"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:w-1/2 space-y-4">
+              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 max-h-80 overflow-y-auto space-y-3">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`flex ${
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
+                    }`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
+                        message.role === 'user'
+                          ? 'bg-primary-600 text-white'
+                          : 'bg-white text-gray-700 border border-gray-200'
+                      }`}
+                    >
+                      {message.content}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <form
+                className="flex gap-2"
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  handleSend()
+                }}
+              >
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(event) => setInput(event.target.value)}
+                  placeholder="예: 예산 3만 달러, GPA 3.5, 전공은 CS"
+                  className="flex-1 rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200"
+                />
+                <button
+                  type="submit"
+                  className="rounded-lg bg-primary-600 px-5 py-3 text-sm font-semibold text-white hover:bg-primary-700 transition-colors"
+                >
+                  전송
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       </section>

@@ -1,9 +1,21 @@
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
+const cspDevStyleInlinePlugin = (isDev: boolean): Plugin => ({
+  name: 'csp-dev-style-inline',
+  transformIndexHtml(html) {
+    if (!isDev) return html
+    // 개발 환경에서만 HMR/CSS 주입을 허용하기 위해 inline style을 풀어준다.
+    return html.replace(
+      /style-src\s+'self';/g,
+      "style-src 'self' 'unsafe-inline';"
+    )
+  },
+})
+
+export default defineConfig(({ mode }) => ({
+  plugins: [react(), cspDevStyleInlinePlugin(mode === 'development')],
   server: {
     proxy: {
       '/api/auth': {
@@ -32,4 +44,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
