@@ -12,10 +12,12 @@
 import axios, { type AxiosError } from 'axios'
 import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
-// 환경 변수에서 포트 번호 가져오기
-const AUTH_API_PORT = import.meta.env.VITE_AUTH_API_PORT || '8081'
-const USER_API_PORT = import.meta.env.VITE_USER_API_PORT || '8082'
-const AUDIT_API_PORT = import.meta.env.VITE_AUDIT_API_PORT || '8083'
+// 환경 변수에서 API Base URL 가져오기 (운영 기본값)
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'https://go-almond.ddnsfree.com'
+const AUTH_API_BASE = `${API_BASE_URL}/api/auth`
+const USER_API_BASE = `${API_BASE_URL}/api/user`
+const AUDIT_API_BASE = `${API_BASE_URL}/api/audit`
 
 // 전역 토큰 갱신 플래그 (무한 루프 방지)
 let isRefreshing = false
@@ -193,7 +195,7 @@ const setupInterceptors = (instance: AxiosInstance, requireTenant: boolean = fal
         try {
           // 토큰 갱신 요청
           const response = await axios.post(
-            `http://localhost:${AUTH_API_PORT}/api/auth/refresh`,
+            `${AUTH_API_BASE}/refresh`,
             { refreshToken },
             {
               headers: {
@@ -259,7 +261,7 @@ const clearAuth = (): void => {
 
 // Auth API 인스턴스
 export const authApi = axios.create({
-  baseURL: `http://localhost:${AUTH_API_PORT}/api/auth`,
+  baseURL: AUTH_API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -272,7 +274,7 @@ export const authApi = axios.create({
 
 // User API 인스턴스
 export const userApi = axios.create({
-  baseURL: `http://localhost:${USER_API_PORT}/api/user`,
+  baseURL: USER_API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -284,7 +286,7 @@ export const userApi = axios.create({
 
 // Audit API 인스턴스
 export const auditApi = axios.create({
-  baseURL: `http://localhost:${AUDIT_API_PORT}/api/audit`,
+  baseURL: AUDIT_API_BASE,
   headers: {
     'Content-Type': 'application/json',
   },
