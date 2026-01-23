@@ -1,6 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { logout } from '../api/AuthService'
+import BaseButton from './ui/BaseButton'
+import BaseLinkButton from './ui/BaseLinkButton'
 
 function Header() {
   const { isAuthenticated, clearAuth, user } = useAuth()
@@ -58,20 +60,14 @@ function Header() {
                     {user.email}
                   </span>
                 )}
-                <button
-                  onClick={handleLogout}
-                  className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition-colors font-medium"
-                >
+                <BaseButton variant="muted" size="sm" onClick={handleLogout}>
                   로그아웃
-                </button>
+                </BaseButton>
               </div>
             ) : (
-              <Link
-                to="/login"
-                className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
-              >
+              <BaseLinkButton to="/login" size="sm">
                 로그인
-              </Link>
+              </BaseLinkButton>
             )}
           </nav>
         </div>

@@ -23,6 +23,10 @@ import {
   sanitizeInput,
   checkLoginAttempts,
 } from '../utils/security'
+import BaseButton from '../components/ui/BaseButton'
+import BaseInput from '../components/ui/BaseInput'
+import { BaseContainer, BaseSection } from '../components/ui/Layout'
+import { BaseHeading, BaseText } from '../components/ui/Typography'
 
 function Login() {
   const navigate = useNavigate()
@@ -205,8 +209,11 @@ function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <BaseSection
+      variant="tight"
+      className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+    >
+      <BaseContainer className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link to="/" className="flex justify-center">
           <img
             src="/logo.jpg"
@@ -214,10 +221,10 @@ function Login() {
             className="h-16 w-auto"
           />
         </Link>
-        <h2 className="mt-6 text-center text-3xl font-bold text-gray-900">
+        <BaseHeading level={2} className="mt-6 text-center">
           계정에 로그인
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        </BaseHeading>
+        <BaseText variant="caption" className="mt-2 text-center">
           또는{' '}
           <Link
             to="/register"
@@ -225,10 +232,10 @@ function Login() {
           >
             새 계정 만들기
           </Link>
-        </p>
-      </div>
+        </BaseText>
+      </BaseContainer>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <BaseContainer className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {/* Rate Limiting 경고 */}
           {attemptCheck && !attemptCheck.allowed && (
@@ -248,15 +255,21 @@ function Login() {
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800">
+                  <BaseText
+                    variant="label"
+                    className="text-red-800"
+                  >
                     로그인 시도 제한
-                  </h3>
-                  <div className="mt-2 text-sm text-red-700">
+                  </BaseText>
+                  <BaseText
+                    variant="caption"
+                    className="mt-2 text-red-700"
+                  >
                     <p>
                       너무 많은 로그인 시도가 있었습니다.{' '}
                       {attemptCheck.lockoutTime}분 후 다시 시도해주세요.
                     </p>
-                  </div>
+                  </BaseText>
                 </div>
               </div>
             </div>
@@ -267,9 +280,9 @@ function Login() {
             <div className="mb-4 rounded-md bg-yellow-50 p-4">
               <div className="flex">
                 <div className="ml-3">
-                  <p className="text-sm text-yellow-800">
+                  <BaseText variant="caption" className="text-yellow-800">
                     남은 로그인 시도 횟수: {attemptCheck.remainingAttempts}회
-                  </p>
+                  </BaseText>
                 </div>
               </div>
             </div>
@@ -294,9 +307,9 @@ function Login() {
                     </svg>
                   </div>
                   <div className="ml-3">
-                    <h3 className="text-sm font-medium text-red-800">
+                    <BaseText variant="label" className="text-red-800">
                       {errors.general}
-                    </h3>
+                    </BaseText>
                   </div>
                 </div>
               </div>
@@ -304,79 +317,63 @@ function Login() {
 
             {/* 이메일 입력 */}
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                이메일 주소
-              </label>
-              <div className="mt-1">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={handleEmailChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.email
-                      ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500'
-                  } rounded-md shadow-sm sm:text-sm`}
-                  placeholder="your@email.com"
-                  disabled={isLoading || (attemptCheck?.allowed === false)}
-                />
-                {errors.email && (
-                  <p className="mt-2 text-sm text-red-600">{errors.email}</p>
-                )}
-              </div>
+              <BaseInput
+                id="email"
+                name="email"
+                type="email"
+                label="이메일 주소"
+                autoComplete="email"
+                required
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="your@email.com"
+                hasError={!!errors.email}
+                disabled={isLoading || attemptCheck?.allowed === false}
+                className="shadow-sm sm:text-sm"
+              />
+              {errors.email && (
+                <BaseText variant="caption" className="mt-2 text-red-600">
+                  {errors.email}
+                </BaseText>
+              )}
             </div>
 
             {/* 비밀번호 입력 */}
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                비밀번호
-              </label>
-              <div className="mt-1">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={handlePasswordChange}
-                  className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.password
-                      ? 'border-red-300 text-red-900 placeholder-red-300 focus:outline-none focus:ring-red-500 focus:border-red-500'
-                      : 'border-gray-300 placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500'
-                  } rounded-md shadow-sm sm:text-sm`}
-                  placeholder="••••••••"
-                  disabled={isLoading || (attemptCheck?.allowed === false)}
-                />
-                {errors.password && (
-                  <p className="mt-2 text-sm text-red-600">{errors.password}</p>
-                )}
-              </div>
+              <BaseInput
+                id="password"
+                name="password"
+                type="password"
+                label="비밀번호"
+                autoComplete="current-password"
+                required
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder="••••••••"
+                hasError={!!errors.password}
+                disabled={isLoading || attemptCheck?.allowed === false}
+                className="shadow-sm sm:text-sm"
+              />
+              {errors.password && (
+                <BaseText variant="caption" className="mt-2 text-red-600">
+                  {errors.password}
+                </BaseText>
+              )}
             </div>
 
             {/* 로그인 버튼 */}
             <div>
-              <button
+              <BaseButton
                 type="submit"
+                className="w-full"
                 disabled={
                   isLoading ||
                   !email ||
                   !password ||
                   !!errors.email ||
                   !!errors.password ||
-                  (attemptCheck?.allowed === false)
+                  attemptCheck?.allowed === false
                 }
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
               >
                 {isLoading ? (
                   <svg
@@ -402,7 +399,7 @@ function Login() {
                 ) : (
                   '로그인'
                 )}
-              </button>
+              </BaseButton>
             </div>
 
             {/* 비밀번호 찾기 링크 */}
@@ -416,8 +413,8 @@ function Login() {
             </div>
           </form>
         </div>
-      </div>
-    </div>
+      </BaseContainer>
+    </BaseSection>
   )
 }
 
