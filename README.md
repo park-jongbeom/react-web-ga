@@ -92,13 +92,44 @@ npm run preview
 - `/` - 메인 페이지 (랜딩 페이지)
 - `/dashboard` - 대시보드 페이지
 
+## 개발 문서
+
+### 프론트엔드 계획
+- 📋 **[MVP 계획 (2.5주)](./docs/frontend/frontend-mvp-plan.md)** - AI 매칭 핵심 기능만 (권장, 즉시 시작)
+- 📋 **[전체 계획 (13주)](./docs/frontend/frontend-workplan.md)** - 모든 기능 포함 (Phase 2 이후)
+- 📊 **[계획 비교표](./docs/frontend/PLAN_COMPARISON.md)** - MVP vs 전체 계획 상세 비교
+- 🎫 **[JIRA 이슈](./docs/frontend/JIRA_ISSUES.md)** - Epic/Story/Task 상세 명세 (3 Epic, 20 Story, 백엔드 연동)
+
+**작업 방식**: 하루 6시간 × 주 4일 (월~목) = 주당 24시간
+
+### 기타 문서
+- 🔐 **[보안 가이드](./docs/01_SECURITY_MANIFEST.md)** - 보안 코딩 표준
+- 🏗️ **[아키텍처](./docs/02_ARCHITECTURE_INTEGRATION.md)** - 시스템 구조
+- 📊 **[데이터 정의](./docs/03_DATA_DEFINITION.md)** - 데이터 모델
+- 🤝 **[백엔드 협업](./docs/04_BACKEND_COOPERATION.md)** - API 연동 규격
+- 🎨 **[UI 컴포넌트 가이드](./docs/ui-components.md)** - 공통 UI 사용법
+
+### 변경 이력
+- 📝 **[History](./docs/History/)** - 프로젝트 변경 이력
+
 ## 향후 개발 계획
 
-- [ ] 사용자 인증 및 로그인 기능
-- [ ] 프로필 수정 기능
-- [ ] 지원서 작성 및 수정 기능
-- [ ] AI 추천 API 연동
-- [ ] 실시간 지원 현황 업데이트
+### MVP (6주, 즉시 시작)
+- [x] 사용자 인증 및 로그인 기능
+- [ ] 프로필 입력 (3단계 Wizard)
+- [ ] AI 매칭 실행 및 결과 표시 (6대 지표)
+- [ ] 추천 학교 리스트 (Top 5)
+- [ ] 학교 상세 보기
+- [ ] 지원 관리 (보관/지원 상태)
+- [ ] 간단한 대시보드
+
+### Phase 2 (MVP 이후)
+- [ ] 4개 프로그램 별 상세 페이지
+- [ ] 문서 표준화 (지원/비자 서류)
+- [ ] 미국 생활 정보 허브
+- [ ] 고급 검색 및 필터링
+- [ ] PDF 생성/공유 기능
+- [ ] 챗봇 문의
 - [ ] 반응형 디자인 개선
 
 ## 참고 자료
