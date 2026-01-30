@@ -79,7 +79,7 @@ export default {
           subtle: 'var(--color-text-subtle)',
           inverse: 'var(--color-text-inverse)',
         },
-        'on-primary': 'var(--color-text-on-primary)',
+        onPrimary: 'var(--color-text-on-primary)',
         border: {
           DEFAULT: 'var(--color-border)',
           strong: 'var(--color-border-strong)',

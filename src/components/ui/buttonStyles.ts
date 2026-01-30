@@ -15,7 +15,7 @@ export type ButtonRounded = 'lg' | 'full'
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-primary-600 text-on-primary hover:bg-primary-700 transition-colors',
+    'bg-primary-600 text-onPrimary hover:bg-primary-700 transition-colors',
   outline:
     'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 transition-colors',
   ghost:
@@ -28,9 +28,9 @@ const variantClasses: Record<ButtonVariant, string> = {
   secondary:
     'bg-surface-subtle text-foreground hover:bg-surface-muted transition-colors',
   success:
-    'bg-success-600 text-on-primary hover:bg-success-700 transition-colors',
+    'bg-success-600 text-onPrimary hover:bg-success-700 transition-colors',
   danger:
-    'bg-danger-600 text-on-primary hover:bg-danger-700 transition-colors',
+    'bg-danger-600 text-onPrimary hover:bg-danger-700 transition-colors',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
