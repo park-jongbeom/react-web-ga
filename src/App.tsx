@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import ProfileStep1 from './pages/ProfileStep1'
 import ProfileStep2 from './pages/ProfileStep2'
+import ProfileStep3 from './pages/ProfileStep3'
 import ProtectedRoute from './components/ProtectedRoute'
 import ErrorBoundary from './components/ErrorBoundary'
 import { AuthProvider } from './context/AuthContext'
@@ -24,6 +25,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path="profile/step1" element={<ProfileStep1 />} />
             <Route path="profile/step2" element={<ProfileStep2 />} />
+            <Route path="profile/step3" element={<ProfileStep3 />} />
             <Route
               path="dashboard"
               element={

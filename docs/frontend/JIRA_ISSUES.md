@@ -187,9 +187,9 @@ SO THAT 더 정확한 매칭을 받을 수 있다
 - [ ] "다음" 버튼 클릭 시 Step 3 이동
 
 **Tasks**:
-- [ ] GAMF-13-1: Step2PersonalInfo.tsx 폼 구현 - 2h
-- [ ] GAMF-13-2: "이전"/"다음" 버튼 로직 - 0.5h
-- [ ] GAMF-13-3: MBTI 선택 UI - 0.5h
+- [x] GAMF-13-1: Step2PersonalInfo.tsx 폼 구현 - 2h
+- [x] GAMF-13-2: "이전"/"다음" 버튼 로직 - 0.5h
+- [x] GAMF-13-3: MBTI 선택 UI - 0.5h
 
 **Definition of Done**:
 - Step 2 폼 정상 렌더링

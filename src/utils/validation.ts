@@ -158,6 +158,57 @@ export const step1SchoolInfoSchema = z.object({
 })
 
 /**
+ * 프로필 Step 2 (개인 정보) 스키마
+ */
+export const step2PersonalInfoSchema = z.object({
+  birthDate: z
+    .string()
+    .min(1, '생년월일을 입력하세요')
+    .refine((value) => !Number.isNaN(new Date(value).getTime()), {
+      message: '생년월일 형식이 올바르지 않습니다.',
+    })
+    .refine(
+      (value) => {
+        const birth = new Date(value)
+        const today = new Date()
+        let age = today.getFullYear() - birth.getFullYear()
+        const monthDiff = today.getMonth() - birth.getMonth()
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+          age -= 1
+        }
+        return age >= 18
+      },
+      {
+        message: '만 18세 이상만 가능합니다.',
+      }
+    ),
+  mbti: z.string().min(1, 'MBTI를 선택하세요'),
+  traits: z.string().optional().default(''),
+  introduction: z.string().optional().default(''),
+})
+
+/**
+ * 프로필 Step 3 (유학 목표) 스키마
+ */
+export const step3StudyPreferenceSchema = z.object({
+  programType: z.enum(['Vocational', 'Community', 'University'], {
+    required_error: '프로그램 유형을 선택하세요.',
+  }),
+  major: z.string().min(2, '희망 전공/직업을 입력하세요'),
+  budget: z
+    .number()
+    .min(20000, '예산은 최소 20,000달러 이상이어야 합니다.')
+    .max(80000, '예산은 최대 80,000달러 이하이어야 합니다.'),
+  locations: z.array(z.string()).min(1, '희망 지역을 최소 1개 선택하세요'),
+  studyDuration: z.enum(['1_year', '2_years', '4_years'], {
+    required_error: '학업 기간을 선택하세요.',
+  }),
+  stayAfterGraduation: z.enum(['yes', 'no'], {
+    required_error: '체류 의사를 선택하세요.',
+  }),
+})
+
+/**
  * 일반 문자열 검증 (Sanitization용)
  * - SQL 인젝션 방어
  * - XSS 방어
@@ -203,6 +254,78 @@ export const validateStep1SchoolInfo = (
   return { success: false, errors }
 }
 
+export const validateStep2PersonalInfo = (
+  values: Record<string, unknown>
+): {
+  success: boolean
+  errors: Partial<Record<keyof Step2PersonalInfo, string>>
+} => {
+  const result = step2PersonalInfoSchema.safeParse(values)
+  if (result.success) {
+    return { success: true, errors: {} }
+  }
+
+  const errors: Partial<Record<keyof Step2PersonalInfo, string>> = {}
+  for (const issue of result.error.errors) {
+    const field = issue.path[0] as keyof Step2PersonalInfo
+    if (!errors[field]) {
+      errors[field] = issue.message
+    }
+  }
+
+  return { success: false, errors }
+}
+
+export const validateStep3StudyPreference = (
+  values: Record<string, unknown>
+): {
+  success: boolean
+  errors: Partial<Record<keyof Step3StudyPreference, string>>
+} => {
+  const result = step3StudyPreferenceSchema.safeParse(values)
+  if (result.success) {
+    return { success: true, errors: {} }
+  }
+
+  const errors: Partial<Record<keyof Step3StudyPreference, string>> = {}
+  for (const issue of result.error.errors) {
+    const field = issue.path[0] as keyof Step3StudyPreference
+    if (!errors[field]) {
+      errors[field] = issue.message
+    }
+  }
+
+  return { success: false, errors }
+}
+
+export const validateProfileSteps = (values: {
+  step1: Record<string, unknown>
+  step2: Record<string, unknown>
+  step3: Record<string, unknown>
+}): {
+  success: boolean
+  stepErrors: {
+    step1?: Partial<Record<keyof Step1SchoolInfo, string>>
+    step2?: Partial<Record<keyof Step2PersonalInfo, string>>
+    step3?: Partial<Record<keyof Step3StudyPreference, string>>
+  }
+} => {
+  const step1Result = validateStep1SchoolInfo(values.step1)
+  const step2Result = validateStep2PersonalInfo(values.step2)
+  const step3Result = validateStep3StudyPreference(values.step3)
+
+  const stepErrors = {
+    ...(step1Result.success ? {} : { step1: step1Result.errors }),
+    ...(step2Result.success ? {} : { step2: step2Result.errors }),
+    ...(step3Result.success ? {} : { step3: step3Result.errors }),
+  }
+
+  return {
+    success: step1Result.success && step2Result.success && step3Result.success,
+    stepErrors,
+  }
+}
+
 /**
  * 타입 추론을 위한 타입 정의
  */
@@ -211,3 +334,5 @@ export type SignupRequest = z.infer<typeof signupRequestSchema>
 export type RefreshRequest = z.infer<typeof refreshRequestSchema>
 export type SanitizedString = z.infer<typeof sanitizedStringSchema>
 export type Step1SchoolInfo = z.infer<typeof step1SchoolInfoSchema>
+export type Step2PersonalInfo = z.infer<typeof step2PersonalInfoSchema>
+export type Step3StudyPreference = z.infer<typeof step3StudyPreferenceSchema>
