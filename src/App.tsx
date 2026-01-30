@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 import ProtectedRoute from './components/ProtectedRoute'
 import ErrorBoundary from './components/ErrorBoundary'
 import { AuthProvider } from './context/AuthContext'
@@ -13,6 +14,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
           <Route
             path="/"
             element={<Layout />}
