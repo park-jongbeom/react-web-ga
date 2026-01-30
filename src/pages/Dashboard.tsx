@@ -116,7 +116,7 @@ function Dashboard() {
             <BaseText variant="caption" className="mb-1">
               이름
             </BaseText>
-            <BaseText variant="subtitle" className="text-gray-900">
+            <BaseText variant="subtitle" className="text-foreground">
               {userProfile.name}
             </BaseText>
           </div>
@@ -124,7 +124,7 @@ function Dashboard() {
             <BaseText variant="caption" className="mb-1">
               GPA
             </BaseText>
-            <BaseText variant="subtitle" className="text-gray-900">
+            <BaseText variant="subtitle" className="text-foreground">
               {userProfile.gpa}
             </BaseText>
           </div>
@@ -132,7 +132,7 @@ function Dashboard() {
             <BaseText variant="caption" className="mb-1">
               예산 (USD)
             </BaseText>
-            <BaseText variant="subtitle" className="text-gray-900">
+            <BaseText variant="subtitle" className="text-foreground">
               ${userProfile.budget.toLocaleString()}
             </BaseText>
           </div>
@@ -140,12 +140,12 @@ function Dashboard() {
             <BaseText variant="caption" className="mb-1">
               진로 목표
             </BaseText>
-            <BaseText variant="subtitle" className="text-gray-900">
+            <BaseText variant="subtitle" className="text-foreground">
               {userProfile.careerGoal}
             </BaseText>
           </div>
         </div>
-        <div className="mt-4 pt-4 border-t border-gray-200">
+        <div className="mt-4 pt-4 border-t border-border">
           <BaseButton variant="link" size="sm" className="px-0">
             프로필 수정하기 →
           </BaseButton>
@@ -210,7 +210,7 @@ function Dashboard() {
                   </BaseText>
                 </div>
                 <div className="text-right">
-                  <div className="text-2xl font-bold text-primary-600">
+                  <div className="text-title-lg font-bold text-primary-600">
                     {rec.matchScore}
                   </div>
                   <BaseText variant="caption">매칭 점수</BaseText>
@@ -238,7 +238,7 @@ function Dashboard() {
           <BaseText variant="caption" className="mb-2">
             전체 지원서
           </BaseText>
-          <BaseHeading level={2} className="text-3xl">
+          <BaseHeading level={2} className="text-title">
             {applications.length}
           </BaseHeading>
           <BaseText variant="caption" className="mt-2">
@@ -249,7 +249,7 @@ function Dashboard() {
           <BaseText variant="caption" className="mb-2">
             합격한 지원서
           </BaseText>
-          <BaseHeading level={2} className="text-3xl text-green-600">
+          <BaseHeading level={2} className="text-title text-success-600">
             {applications.filter((a) => a.status === 'Accepted').length}
           </BaseHeading>
           <BaseText variant="caption" className="mt-2">
@@ -260,7 +260,7 @@ function Dashboard() {
           <BaseText variant="caption" className="mb-2">
             평균 매칭 점수
           </BaseText>
-          <BaseHeading level={2} className="text-3xl text-primary-600">
+          <BaseHeading level={2} className="text-title text-primary-600">
             {Math.round(
               aiRecommendations.reduce((sum, r) => sum + r.matchScore, 0) /
                 aiRecommendations.length

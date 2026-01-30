@@ -11,11 +11,11 @@ type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
 }
 
 const variantClasses: Record<CardVariant, string> = {
-  default: 'border border-gray-200 bg-gray-50',
-  outline: 'border border-gray-200 bg-white',
+  default: 'border border-border bg-surface-subtle',
+  outline: 'border border-border bg-surface',
   interactive:
-    'border-2 border-primary-500 bg-white hover:border-primary-600 hover:shadow-md transition-all cursor-pointer',
-  accent: 'border border-gray-200 bg-white hover:shadow-md transition-shadow',
+    'border-2 border-primary-500 bg-surface hover:border-primary-600 hover:shadow-md transition-all cursor-pointer',
+  accent: 'border border-border bg-surface hover:shadow-md transition-shadow',
 }
 
 const sizeClasses: Record<CardSize, string> = {
@@ -38,7 +38,7 @@ function BaseCard({
       {...props}
     >
       {title && (
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">{title}</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-2">{title}</h3>
       )}
       {children}
     </div>

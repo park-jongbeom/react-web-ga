@@ -137,55 +137,55 @@ function Home() {
         </BaseHeading>
         <BaseGrid cols={3} gap="sm">
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               University
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               4년제 대학 프로그램으로 명문 대학 입학을 준비합니다.
             </p>
           </BaseCard>
 
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               Community College
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               커뮤니티 컬리지 편입 프로그램으로 경제적인 유학 경로를 제공합니다.
             </p>
           </BaseCard>
 
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               Vocational College
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               직업학교 프로그램으로 실용적인 기술을 배워 빠르게 취업으로 이어집니다.
             </p>
           </BaseCard>
 
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               Elementary Program
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               초등 프로그램으로 어린이들의 조기 유학 경로를 지원합니다.
             </p>
           </BaseCard>
 
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               US Life
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               미국 생활 적응 프로그램으로 문화와 생활을 지원합니다.
             </p>
           </BaseCard>
 
           <BaseCard variant="interactive" className="rounded-lg">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">
+            <h3 className="text-lg font-bold text-foreground mb-2">
               AI 추천
             </h3>
-            <p className="text-gray-600 text-sm">
+            <p className="text-foreground-muted text-sm">
               개인의 학업 배경, GPA, 예산, 진로 목표를 분석하여 최적의 유학 경로를 AI가 추천합니다.
             </p>
           </BaseCard>
@@ -207,7 +207,7 @@ function Home() {
                 경제적인 비용으로 시작하여 4년제 대학으로 편입하는 효율적인
                 경로입니다.
               </BaseText>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
+              <ul className="list-disc list-inside text-foreground-muted space-y-2">
                 <li>저렴한 학비로 시작</li>
                 <li>명문 대학 편입 기회</li>
                 <li>유연한 학업 일정</li>
@@ -221,7 +221,7 @@ function Home() {
               <BaseText className="mb-4">
                 실용적인 기술을 배워 빠르게 취업으로 이어지는 프로그램입니다.
               </BaseText>
-              <ul className="list-disc list-inside text-gray-600 space-y-2">
+              <ul className="list-disc list-inside text-foreground-muted space-y-2">
                 <li>단기 집중 교육</li>
                 <li>실무 중심 커리큘럼</li>
                 <li>취업 연계 지원</li>
@@ -283,7 +283,7 @@ function Home() {
             </div>
 
             <div className="lg:w-1/2 space-y-4">
-              <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 max-h-80 overflow-y-auto space-y-3">
+              <div className="rounded-lg border border-border bg-surface-subtle p-4 max-h-80 overflow-y-auto space-y-3">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -295,7 +295,7 @@ function Home() {
                       className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
                         message.role === 'user'
                           ? 'bg-primary-600 text-white'
-                          : 'bg-white text-gray-700 border border-gray-200'
+                          : 'bg-surface text-foreground-muted border border-border'
                       }`}
                     >
                       {message.content}

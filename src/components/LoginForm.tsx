@@ -36,11 +36,11 @@ function LoginForm({
     <form className="space-y-6" onSubmit={onSubmit}>
       {/* 일반 에러 메시지 */}
       {errors.general && (
-        <div className="rounded-md bg-red-50 p-4">
+        <div className="rounded-md bg-danger-50 p-4">
           <div className="flex">
             <div className="flex-shrink-0">
               <svg
-                className="h-5 w-5 text-red-400"
+                className="h-5 w-5 text-danger-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -52,7 +52,7 @@ function LoginForm({
               </svg>
             </div>
             <div className="ml-3">
-              <BaseText variant="label" className="text-red-800">
+              <BaseText variant="label" className="text-danger-800">
                 {errors.general}
               </BaseText>
             </div>
@@ -77,7 +77,7 @@ function LoginForm({
           className="shadow-sm sm:text-sm"
         />
         {errors.email && (
-          <BaseText variant="caption" className="mt-2 text-red-600">
+          <BaseText variant="caption" className="mt-2 text-danger-600">
             {errors.email}
           </BaseText>
         )}
@@ -100,7 +100,7 @@ function LoginForm({
           className="shadow-sm sm:text-sm"
         />
         {errors.password && (
-          <BaseText variant="caption" className="mt-2 text-red-600">
+          <BaseText variant="caption" className="mt-2 text-danger-600">
             {errors.password}
           </BaseText>
         )}

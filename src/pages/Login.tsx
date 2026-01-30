@@ -210,7 +210,7 @@ function Login() {
   return (
     <BaseSection
       variant="tight"
-      className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+      className="min-h-screen bg-surface-subtle flex flex-col justify-center py-12 sm:px-6 lg:px-8"
     >
       <BaseContainer className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link to="/" className="flex justify-center">
@@ -235,14 +235,14 @@ function Login() {
       </BaseContainer>
 
       <BaseContainer className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-surface py-8 px-4 shadow sm:rounded-lg sm:px-10">
           {/* Rate Limiting 경고 */}
           {attemptCheck && !attemptCheck.allowed && (
-            <div className="mb-4 rounded-md bg-red-50 p-4">
+            <div className="mb-4 rounded-md bg-danger-50 p-4">
               <div className="flex">
                 <div className="flex-shrink-0">
                   <svg
-                    className="h-5 w-5 text-red-400"
+                    className="h-5 w-5 text-danger-400"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
@@ -256,13 +256,13 @@ function Login() {
                 <div className="ml-3">
                   <BaseText
                     variant="label"
-                    className="text-red-800"
+                    className="text-danger-800"
                   >
                     로그인 시도 제한
                   </BaseText>
                   <BaseText
                     variant="caption"
-                    className="mt-2 text-red-700"
+                    className="mt-2 text-danger-700"
                   >
                     <p>
                       너무 많은 로그인 시도가 있었습니다.{' '}
@@ -276,10 +276,10 @@ function Login() {
 
           {/* 남은 시도 횟수 표시 */}
           {attemptCheck && attemptCheck.allowed && attemptCheck.remainingAttempts < 5 && (
-            <div className="mb-4 rounded-md bg-yellow-50 p-4">
+            <div className="mb-4 rounded-md bg-warning-50 p-4">
               <div className="flex">
                 <div className="ml-3">
-                  <BaseText variant="caption" className="text-yellow-800">
+                  <BaseText variant="caption" className="text-warning-800">
                     남은 로그인 시도 횟수: {attemptCheck.remainingAttempts}회
                   </BaseText>
                 </div>

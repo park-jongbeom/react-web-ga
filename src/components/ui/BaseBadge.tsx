@@ -8,9 +8,9 @@ type BaseBadgeProps = HTMLAttributes<HTMLSpanElement> & {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  success: 'bg-green-100 text-green-800',
-  info: 'bg-blue-100 text-blue-800',
-  neutral: 'bg-gray-100 text-gray-800',
+  success: 'bg-success-100 text-success-800',
+  info: 'bg-info-100 text-info-800',
+  neutral: 'bg-surface-muted text-foreground',
 }
 
 function BaseBadge({

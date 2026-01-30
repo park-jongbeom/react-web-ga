@@ -7,7 +7,7 @@ type BasePanelProps = HTMLAttributes<HTMLDivElement> & {
 function BasePanel({ children, className = '', ...props }: BasePanelProps) {
   return (
     <div
-      className={`bg-white rounded-xl shadow-md p-6 ${className}`.trim()}
+      className={`bg-surface rounded-xl shadow-md p-6 ${className}`.trim()}
       {...props}
     >
       {children}

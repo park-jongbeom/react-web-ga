@@ -50,8 +50,8 @@ function SignupForm({
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
       {errors.general && (
-        <div className="rounded-md bg-red-50 p-4">
-          <BaseText variant="label" className="text-red-800">
+        <div className="rounded-md bg-danger-50 p-4">
+          <BaseText variant="label" className="text-danger-800">
             {errors.general}
           </BaseText>
         </div>

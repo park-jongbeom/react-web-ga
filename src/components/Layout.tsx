@@ -5,7 +5,7 @@ import { BaseContainer } from './ui/Layout'
 
 function Layout() {
   return (
-    <div className="min-h-screen bg-gray-50">
+  <div className="min-h-screen bg-surface-subtle">
       <Header />
       <Navigation />
       <main className="py-8">

@@ -21,7 +21,7 @@ function Header() {
   }
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200">
+  <header className="bg-surface shadow-sm border-b border-border">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -41,14 +41,14 @@ function Header() {
           <nav className="flex items-center space-x-6">
             <Link
               to="/"
-              className="text-gray-600 hover:text-primary-600 font-medium transition-colors"
+            className="text-foreground-muted hover:text-primary-600 font-medium transition-colors"
             >
               홈
             </Link>
             {isAuthenticated && (
               <Link
                 to="/dashboard"
-                className="text-gray-600 hover:text-primary-600 font-medium transition-colors"
+              className="text-foreground-muted hover:text-primary-600 font-medium transition-colors"
               >
                 대시보드
               </Link>
@@ -56,7 +56,7 @@ function Header() {
             {isAuthenticated ? (
               <div className="flex items-center space-x-4">
                 {user && (
-                  <span className="text-gray-600 text-sm">
+                <span className="text-foreground-muted text-sm">
                     {user.email}
                   </span>
                 )}

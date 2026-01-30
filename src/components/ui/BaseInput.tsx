@@ -27,17 +27,17 @@ function BaseInput({
       {label && (
         <label
           htmlFor={id}
-          className="block text-xs font-semibold text-gray-600 mb-2"
+          className="block text-xs font-semibold text-foreground-muted mb-2"
         >
           {label}
         </label>
       )}
       <input
         id={id}
-        className={`w-full rounded-lg border focus:outline-none focus:ring-2 ${
+        className={`w-full rounded-lg border border-border bg-white text-gray-900 focus:outline-none focus:ring-2 ${
           showError
-            ? 'border-red-300 focus:border-red-400 focus:ring-red-200'
-            : 'border-gray-300 focus:border-primary-500 focus:ring-primary-200'
+            ? 'border-danger-300 focus:border-danger-400 focus:ring-danger-100'
+            : 'border-border focus:border-primary-500 focus:ring-primary-200'
         } ${
           fieldSize === 'sm'
             ? 'px-3 py-2 text-sm'
@@ -48,10 +48,10 @@ function BaseInput({
         {...props}
       />
       {errorText && (
-        <p className="mt-2 text-xs text-red-600">{errorText}</p>
+        <p className="mt-2 text-xs text-danger-600">{errorText}</p>
       )}
       {!errorText && helperText && (
-        <p className="mt-2 text-xs text-gray-500">{helperText}</p>
+        <p className="mt-2 text-xs text-foreground-subtle">{helperText}</p>
       )}
     </div>
   )

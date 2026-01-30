@@ -2,13 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+:root {
+  /* 색상 토큰 */
+  --color-primary-50: #e8f5e9;
+  --color-primary-100: #c8e6c9;
+  --color-primary-200: #a5d6a7;
+  --color-primary-300: #81c784;
+  --color-primary-400: #66bb6a;
+  --color-primary-500: #4caf50;
+  --color-primary-600: #43a047;
+  --color-primary-700: #388e3c;
+  --color-primary-800: #2e7d32;
+  --color-primary-900: #1b5e20;
+
+  --color-neutral-50: #f5f5f5;
+  --color-neutral-100: #eeeeee;
+  --color-neutral-200: #e0e0e0;
+  --color-neutral-300: #bdbdbd;
+  --color-neutral-400: #9e9e9e;
+  --color-neutral-500: #757575;
+  --color-neutral-600: #616161;
+  --color-neutral-700: #424242;
+  --color-neutral-800: #212121;
+  --color-neutral-900: #111111;
+
+  --color-success-50: #f0fdf4;
+  --color-success-100: #dcfce7;
+  --color-success-600: #16a34a;
+  --color-success-700: #15803d;
+  --color-success-800: #166534;
+
+  --color-danger-50: #fef2f2;
+  --color-danger-100: #fee2e2;
+  --color-danger-300: #fca5a5;
+  --color-danger-400: #f87171;
+  --color-danger-600: #dc2626;
+  --color-danger-700: #b91c1c;
+  --color-danger-800: #991b1b;
+
+  --color-warning-50: #fff3e0;
+  --color-warning-100: #ffe0b2;
+  --color-warning-600: #fb8c00;
+  --color-warning-700: #f57c00;
+  --color-warning-800: #ef6c00;
+
+  --color-accent-50: #fff3e0;
+  --color-accent-100: #ffe0b2;
+  --color-accent-500: #ff9800;
+  --color-accent-600: #fb8c00;
+  --color-accent-700: #f57c00;
+  --color-accent-800: #ef6c00;
+
+  --color-info-50: #eff6ff;
+  --color-info-100: #dbeafe;
+  --color-info-600: #2563eb;
+  --color-info-800: #1e40af;
+
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f5f5f5;
+  --color-surface-muted: #eeeeee;
+  --color-border: #e0e0e0;
+  --color-border-strong: #bdbdbd;
+  --color-text: #111111;
+  --color-text-muted: #424242;
+  --color-text-subtle: #616161;
+  --color-text-inverse: #ffffff;
+  --color-text-on-primary: #ffffff;
+
+  /* 타이포그래피 토큰 */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-title: 1.25rem;
+  --font-size-title-lg: 1.5rem;
+  --font-size-section: 1.125rem;
+  --font-size-body: 1rem;
+  --font-size-body-sm: 0.875rem;
+  --font-size-caption: 0.75rem;
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+
+  /* 간격 토큰 */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+  --space-40: 10rem;
+  --space-48: 12rem;
+  --space-56: 14rem;
+  --space-64: 16rem;
+
+  /* 라운드/쉐도우 토큰 */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.1), 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.1), 0 2px 4px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 10px 15px rgba(15, 23, 42, 0.1), 0 4px 6px rgba(15, 23, 42, 0.05);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text);
+  background-color: var(--color-surface);
 }
 
 code {

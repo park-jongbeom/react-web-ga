@@ -11,15 +11,15 @@ type BaseHeadingProps = HTMLAttributes<HTMLHeadingElement> & {
 }
 
 const headingSizeClasses: Record<HeadingLevel, string> = {
-  1: 'text-4xl font-bold',
-  2: 'text-3xl font-bold',
-  3: 'text-xl font-semibold',
-  4: 'text-lg font-semibold',
+  1: 'text-title-lg font-bold',
+  2: 'text-title font-bold',
+  3: 'text-section font-semibold',
+  4: 'text-body font-semibold',
 }
 
 const headingToneClasses: Record<HeadingTone, string> = {
-  primary: 'text-gray-900',
-  muted: 'text-gray-700',
+  primary: 'text-foreground',
+  muted: 'text-foreground-muted',
 }
 
 function BaseHeading({
@@ -46,13 +46,13 @@ type BaseTextProps = HTMLAttributes<HTMLParagraphElement> & {
 }
 
 const textVariantClasses: Record<TextVariant, string> = {
-  body: 'text-gray-600 text-base',
-  subtitle: 'text-gray-600 text-lg font-medium',
-  caption: 'text-gray-500 text-sm',
-  label: 'text-gray-700 text-sm font-medium',
-  overline: 'text-xs uppercase tracking-widest text-gray-500 font-semibold',
-  helper: 'text-xs text-gray-500',
-  error: 'text-xs text-red-600',
+  body: 'text-foreground-muted text-body',
+  subtitle: 'text-foreground-muted text-section font-medium',
+  caption: 'text-foreground-subtle text-caption',
+  label: 'text-foreground-muted text-body-sm font-medium',
+  overline: 'text-caption uppercase tracking-widest text-foreground-subtle font-semibold',
+  helper: 'text-caption text-foreground-subtle',
+  error: 'text-caption text-danger-600',
 }
 
 function BaseText({

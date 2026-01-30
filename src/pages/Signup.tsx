@@ -85,7 +85,7 @@ function Signup() {
   return (
     <BaseSection
       variant="tight"
-      className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+      className="min-h-screen bg-surface-subtle flex flex-col justify-center py-12 sm:px-6 lg:px-8"
     >
       <BaseContainer className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link to="/" className="flex justify-center">
@@ -106,7 +106,7 @@ function Signup() {
       </BaseContainer>
 
       <BaseContainer className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-surface py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <SignupForm
             onSubmit={handleSubmit}
             errors={errors}

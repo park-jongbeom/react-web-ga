@@ -141,13 +141,13 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
           }
 
       return (
-        <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-surface-subtle flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            <div className="bg-surface py-8 px-4 shadow sm:rounded-lg sm:px-10">
               <div className="text-center">
-                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100">
+                <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-danger-100">
                   <svg
-                    className="h-6 w-6 text-red-600"
+                    className="h-6 w-6 text-danger-600"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -160,10 +160,10 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                     />
                   </svg>
                 </div>
-                <h2 className="mt-4 text-xl font-bold text-gray-900">
+                <h2 className="mt-4 text-xl font-bold text-foreground">
                   오류가 발생했습니다
                 </h2>
-                <p className="mt-2 text-sm text-gray-600">
+                <p className="mt-2 text-sm text-foreground-muted">
                   {sanitized.message}
                 </p>
                 <div className="mt-6">

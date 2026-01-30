@@ -7,7 +7,7 @@ type BaseNavLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
 function BaseNavLink({ children, className = '', ...props }: BaseNavLinkProps) {
   return (
     <a
-      className={`py-4 text-gray-600 hover:text-primary-600 font-medium border-b-2 border-transparent hover:border-primary-600 transition-colors ${className}`.trim()}
+      className={`py-4 text-foreground-muted hover:text-primary-600 font-medium border-b-2 border-transparent hover:border-primary-600 transition-colors ${className}`.trim()}
       {...props}
     >
       {children}
