@@ -24,7 +24,7 @@ export const emailSchema = z
   .refine(
     (email) => {
       // SQL 인젝션 방어: 위험한 문자 제한
-      const dangerousChars = /[;'"\\<>]/
+      const dangerousChars = /[;"'\\<>]/
       return !dangerousChars.test(email)
     },
     {
@@ -73,7 +73,7 @@ export const passwordSchema = z
   .refine(
     (password) => {
       // SQL 인젝션 및 XSS 방어: 위험한 문자 제한
-      const dangerousChars = /[;'"\\<>]/
+      const dangerousChars = /[;"'\\<>]/
       return !dangerousChars.test(password)
     },
     {
@@ -128,6 +128,36 @@ export const refreshRequestSchema = z.object({
 })
 
 /**
+ * 프로필 Step 1 (학교 정보) 스키마
+ */
+export const step1SchoolInfoSchema = z.object({
+  schoolType: z.enum(['high_school', 'university']),
+  schoolName: z.string().min(2, '학교명을 입력하세요'),
+  schoolLocation: z.string().min(2, '지역을 입력하세요'),
+  gpa: z
+    .string()
+    .min(1, '내신 성적을 입력하세요')
+    .refine((value) => !Number.isNaN(Number(value)), {
+      message: 'GPA는 숫자여야 합니다.',
+    })
+    .transform((value) => Number(value))
+    .refine((value) => value >= 0 && value <= 4.0, {
+      message: 'GPA는 0.0~4.0 범위입니다.',
+    }),
+  englishTestType: z.enum(['TOEFL', 'IELTS']),
+  englishScore: z
+    .string()
+    .min(1, '영어 점수를 입력하세요')
+    .refine((value) => !Number.isNaN(Number(value)), {
+      message: '영어 점수는 숫자여야 합니다.',
+    })
+    .transform((value) => Number(value))
+    .refine((value) => value >= 0, {
+      message: '영어 점수는 0 이상이어야 합니다.',
+    }),
+})
+
+/**
  * 일반 문자열 검증 (Sanitization용)
  * - SQL 인젝션 방어
  * - XSS 방어
@@ -139,7 +169,7 @@ export const sanitizedStringSchema = z
   .refine(
     (value) => {
       // SQL 인젝션 방어: 위험한 문자 제한
-      const dangerousChars = /[;'"\\<>]/
+      const dangerousChars = /[;"'\\<>]/
       return !dangerousChars.test(value)
     },
     {
@@ -149,9 +179,35 @@ export const sanitizedStringSchema = z
   .transform((value) => value.trim())
 
 /**
+ * Step 1 입력값 검증 헬퍼
+ */
+export const validateStep1SchoolInfo = (
+  values: Record<string, unknown>
+): {
+  success: boolean
+  errors: Partial<Record<keyof Step1SchoolInfo, string>>
+} => {
+  const result = step1SchoolInfoSchema.safeParse(values)
+  if (result.success) {
+    return { success: true, errors: {} }
+  }
+
+  const errors: Partial<Record<keyof Step1SchoolInfo, string>> = {}
+  for (const issue of result.error.errors) {
+    const field = issue.path[0] as keyof Step1SchoolInfo
+    if (!errors[field]) {
+      errors[field] = issue.message
+    }
+  }
+
+  return { success: false, errors }
+}
+
+/**
  * 타입 추론을 위한 타입 정의
  */
 export type LoginRequest = z.infer<typeof loginRequestSchema>
 export type SignupRequest = z.infer<typeof signupRequestSchema>
 export type RefreshRequest = z.infer<typeof refreshRequestSchema>
 export type SanitizedString = z.infer<typeof sanitizedStringSchema>
+export type Step1SchoolInfo = z.infer<typeof step1SchoolInfoSchema>

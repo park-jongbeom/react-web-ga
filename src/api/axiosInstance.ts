@@ -12,9 +12,8 @@
 import axios, { type AxiosError } from 'axios'
 import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
-// 환경 변수에서 API Base URL 가져오기 (운영 기본값)
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || 'https://go-almond.ddnsfree.com'
+// API Base URL (고정)
+const API_BASE_URL = 'https://go-almond.ddnsfree.com'
 const AUTH_API_BASE = `${API_BASE_URL}/api/auth`
 const USER_API_BASE = `${API_BASE_URL}/api/user`
 const AUDIT_API_BASE = `${API_BASE_URL}/api/audit`

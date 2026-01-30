@@ -73,7 +73,7 @@ function Signup() {
           }
 
       setAuth(accessToken, refreshToken, user)
-      navigate('/dashboard', { replace: true })
+      navigate('/profile/step1', { replace: true })
       return
     }
 
