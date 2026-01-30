@@ -23,11 +23,14 @@ import type {
   ApiResponse,
   LoginResponse,
   RefreshResponse,
+  SignupResponse,
 } from '../types/api'
 import {
   loginRequestSchema,
+  signupRequestSchema,
   refreshRequestSchema,
   type LoginRequest as ZodLoginRequest,
+  type SignupRequest as ZodSignupRequest,
   type RefreshRequest as ZodRefreshRequest,
 } from '../utils/validation'
 import {
@@ -211,6 +214,67 @@ export const login = async (
     return {
       success: false,
       error: safeMessage,
+    }
+  }
+}
+
+/**
+ * 회원가입
+ *
+ * 보안 검증:
+ * 1. Zod 스키마 검증 (이메일/비밀번호/확인)
+ * 2. 입력값 정제 및 길이 제한
+ * 3. 에러 메시지 일반화
+ */
+export const register = async (
+  email: string,
+  password: string,
+  passwordConfirm: string
+): Promise<{ success: boolean; data?: SignupResponse; error?: string }> => {
+  try {
+    const trimmedEmail = email.trim()
+    const trimmedPassword = password.trim()
+    const trimmedConfirm = passwordConfirm.trim()
+
+    const validationResult = signupRequestSchema.safeParse({
+      email: trimmedEmail,
+      password: trimmedPassword,
+      passwordConfirm: trimmedConfirm,
+    })
+
+    if (!validationResult.success) {
+      const firstError = validationResult.error.errors[0]
+      return {
+        success: false,
+        error: firstError.message || '입력값 검증에 실패했습니다.',
+      }
+    }
+
+    const signupRequest: ZodSignupRequest = validationResult.data
+
+    const response = await authApi.post<ApiResponse<SignupResponse>>(
+      '/register',
+      signupRequest
+    )
+
+    if (response.data.success && response.data.data) {
+      const { accessToken, refreshToken } = response.data.data
+      setToken(accessToken, refreshToken)
+
+      return {
+        success: true,
+        data: response.data.data,
+      }
+    }
+
+    return {
+      success: false,
+      error: response.data.message || '회원가입에 실패했습니다.',
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: getSafeErrorMessage(error),
     }
   }
 }

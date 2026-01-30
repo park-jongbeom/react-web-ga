@@ -14,12 +14,20 @@ export interface LoginRequest {
   password: string
 }
 
+export interface SignupRequest {
+  email: string
+  password: string
+  passwordConfirm: string
+}
+
 export interface LoginResponse {
   accessToken: string
   refreshToken: string
   tokenType: string
   expiresIn: number
 }
+
+export type SignupResponse = LoginResponse
 
 export interface RefreshRequest {
   refreshToken: string

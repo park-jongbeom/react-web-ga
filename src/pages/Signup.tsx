@@ -9,9 +9,79 @@
 import SignupForm from '../components/SignupForm'
 import { BaseContainer, BaseSection } from '../components/ui/Layout'
 import { BaseHeading, BaseText } from '../components/ui/Typography'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { register } from '../api/AuthService'
+import { signupRequestSchema } from '../utils/validation'
+import { useAuth } from '../context/AuthContext'
+import { decodeJwtPayload } from '../utils/security'
+
+type SignupErrors = {
+  email?: string
+  password?: string
+  passwordConfirm?: string
+  general?: string
+}
 
 function Signup() {
+  const navigate = useNavigate()
+  const { setAuth } = useAuth()
+  const [errors, setErrors] = useState<SignupErrors>({})
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleSubmit = async (values: {
+    email: string
+    password: string
+    passwordConfirm: string
+  }) => {
+    setErrors({})
+    setIsLoading(true)
+
+    const validationResult = signupRequestSchema.safeParse(values)
+    if (!validationResult.success) {
+      const fieldError = validationResult.error.errors[0]
+      const fieldName = fieldError.path[0] as keyof SignupErrors
+      setErrors({ [fieldName]: fieldError.message })
+      setIsLoading(false)
+      return
+    }
+
+    const result = await register(
+      validationResult.data.email,
+      validationResult.data.password,
+      validationResult.data.passwordConfirm
+    )
+
+    if (result.success && result.data) {
+      const { accessToken, refreshToken } = result.data
+      const payload = decodeJwtPayload(accessToken)
+      const user = payload
+        ? {
+            id: payload.sub || payload.userId || '',
+            email: payload.email || validationResult.data.email,
+            roles: payload.roles
+              ? Array.isArray(payload.roles)
+                ? payload.roles
+                : [payload.roles]
+              : [],
+            tenantId: payload.tenantId || undefined,
+          }
+        : {
+            id: '',
+            email: validationResult.data.email,
+            roles: [],
+          }
+
+      setAuth(accessToken, refreshToken, user)
+      navigate('/dashboard', { replace: true })
+      return
+    }
+
+    setErrors({
+      general: result.error || '회원가입에 실패했습니다.',
+    })
+    setIsLoading(false)
+  }
   return (
     <BaseSection
       variant="tight"
@@ -37,7 +107,11 @@ function Signup() {
 
       <BaseContainer className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <SignupForm />
+          <SignupForm
+            onSubmit={handleSubmit}
+            errors={errors}
+            isLoading={isLoading}
+          />
         </div>
       </BaseContainer>
     </BaseSection>

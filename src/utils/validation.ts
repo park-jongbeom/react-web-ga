@@ -90,6 +90,20 @@ export const loginRequestSchema = z.object({
 })
 
 /**
+ * 회원가입 요청 스키마
+ */
+export const signupRequestSchema = z
+  .object({
+    email: emailSchema,
+    password: passwordSchema,
+    passwordConfirm: passwordSchema,
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: '비밀번호가 일치하지 않습니다.',
+    path: ['passwordConfirm'],
+  })
+
+/**
  * Refresh Token 검증 스키마
  */
 export const refreshTokenSchema = z
@@ -138,5 +152,6 @@ export const sanitizedStringSchema = z
  * 타입 추론을 위한 타입 정의
  */
 export type LoginRequest = z.infer<typeof loginRequestSchema>
+export type SignupRequest = z.infer<typeof signupRequestSchema>
 export type RefreshRequest = z.infer<typeof refreshRequestSchema>
 export type SanitizedString = z.infer<typeof sanitizedStringSchema>
