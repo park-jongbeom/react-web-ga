@@ -152,13 +152,13 @@ export const login = async (
 
     if (response.data.success && response.data.data) {
       // 5. 토큰 저장
-      const { accessToken, refreshToken } = response.data.data
-      setToken(accessToken, refreshToken)
+      const { token } = response.data.data
+      setToken(token, '')
 
       // 6. 사용자 ID 추출 (Audit Log용)
       try {
         const tokenPayload = JSON.parse(
-          atob(accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
+          atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
         )
         userId = tokenPayload.sub || tokenPayload.userId
       } catch {
@@ -253,13 +253,16 @@ export const register = async (
     const signupRequest: ZodSignupRequest = validationResult.data
 
     const response = await authApi.post<ApiResponse<SignupResponse>>(
-      '/register',
-      signupRequest
+      '/signup',
+      {
+        email: signupRequest.email,
+        password: signupRequest.password,
+      }
     )
 
     if (response.data.success && response.data.data) {
-      const { accessToken, refreshToken } = response.data.data
-      setToken(accessToken, refreshToken)
+      const { token } = response.data.data
+      setToken(token, '')
 
       return {
         success: true,

@@ -18,20 +18,10 @@ export default defineConfig(({ mode }) => ({
   plugins: [react(), cspDevStyleInlinePlugin(mode === 'development')],
   server: {
     proxy: {
-      '/api/auth': {
-        target: 'http://localhost:8081',
+      '/api/v1': {
+        target: 'https://go-almond.ddnsfree.com',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/auth/, '/api/auth'),
-      },
-      '/api/user': {
-        target: 'http://localhost:8082',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/user/, '/api/user'),
-      },
-      '/api/audit': {
-        target: 'http://localhost:8083',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/audit/, '/api/audit'),
+        secure: false,
       },
     },
   },

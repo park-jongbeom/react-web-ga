@@ -21,10 +21,12 @@ export interface SignupRequest {
 }
 
 export interface LoginResponse {
-  accessToken: string
-  refreshToken: string
-  tokenType: string
-  expiresIn: number
+  token: string
+  user: {
+    id: string
+    email: string
+    fullName?: string
+  }
 }
 
 export type SignupResponse = LoginResponse

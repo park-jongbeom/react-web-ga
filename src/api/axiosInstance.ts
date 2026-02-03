@@ -14,8 +14,8 @@ import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
 // API Base URL (고정)
 const API_BASE_URL = 'https://go-almond.ddnsfree.com'
-const AUTH_API_BASE = `${API_BASE_URL}/api/auth`
-const USER_API_BASE = `${API_BASE_URL}/api/user`
+const AUTH_API_BASE = `${API_BASE_URL}/api/v1/auth`
+const USER_API_BASE = `${API_BASE_URL}/api/v1/user`
 const AUDIT_API_BASE = `${API_BASE_URL}/api/audit`
 
 // 전역 토큰 갱신 플래그 (무한 루프 방지)
@@ -80,10 +80,10 @@ const maskError = (error: AxiosError): AxiosError => {
  * - 이 경로들은 반드시 Tenant ID가 있어야 함
  */
 const TENANT_REQUIRED_PATHS = [
-  '/api/user',  // 모든 User API는 테넌트 필수
+  '/api/v1/user',  // 모든 User API는 테넌트 필수
   '/api/audit', // 모든 Audit API는 테넌트 필수
-  '/api/auth/refresh', // 토큰 갱신은 테넌트 필수
-  '/api/auth/logout', // 로그아웃은 테넌트 필수
+  '/api/v1/auth/refresh', // 토큰 갱신은 테넌트 필수
+  '/api/v1/auth/logout', // 로그아웃은 테넌트 필수
 ]
 
 /**
@@ -264,10 +264,8 @@ export const authApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  // CSRF 방어 설정
-  withCredentials: true,
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
+  // 토큰 기반 인증 사용 (쿠키 불필요)
+  withCredentials: false,
   timeout: 10000,
 })
 
@@ -277,9 +275,7 @@ export const userApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
+  withCredentials: false,
   timeout: 10000,
 })
 
@@ -289,9 +285,7 @@ export const auditApi = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true,
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
+  withCredentials: false,
   timeout: 5000, // Audit Log는 짧은 타임아웃
 })
 

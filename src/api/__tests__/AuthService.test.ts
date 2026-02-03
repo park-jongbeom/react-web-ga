@@ -26,10 +26,12 @@ describe('AuthService', () => {
       data: {
         success: true,
         data: {
-          accessToken: 'access-token',
-          refreshToken: 'refresh-token',
-          tokenType: 'Bearer',
-          expiresIn: 3600,
+          token: 'access-token',
+          user: {
+            id: 'user-1',
+            email: 'test@example.com',
+            fullName: '테스트',
+          },
         },
       },
     })
@@ -46,10 +48,12 @@ describe('AuthService', () => {
       data: {
         success: true,
         data: {
-          accessToken: 'access-token',
-          refreshToken: 'refresh-token',
-          tokenType: 'Bearer',
-          expiresIn: 3600,
+          token: 'access-token',
+          user: {
+            id: 'user-1',
+            email: 'test@example.com',
+            fullName: '테스트',
+          },
         },
       },
     })
