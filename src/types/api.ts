@@ -40,6 +40,31 @@ export interface RefreshResponse {
   expiresIn: number
 }
 
+export interface UserProfileRequest {
+  birthDate: string
+  mbti: string
+  traits?: string
+  introduction?: string
+}
+
+export interface UserEducationRequest {
+  schoolType: 'high_school' | 'university'
+  schoolName: string
+  schoolLocation: string
+  gpa: number
+  englishTestType: 'TOEFL' | 'IELTS'
+  englishScore: number
+}
+
+export interface UserPreferenceRequest {
+  programType: 'Vocational' | 'Community' | 'University'
+  major: string
+  budget: number
+  locations: string[]
+  studyDuration: '1_year' | '2_years' | '4_years'
+  stayAfterGraduation: 'yes' | 'no'
+}
+
 export interface AuthError {
   code: string
   message: string
