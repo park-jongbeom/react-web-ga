@@ -39,7 +39,7 @@ describe('UserProfileService', () => {
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPutMock).toHaveBeenCalledWith(
-      '/api/v1/user/profile',
+      '/profile',
       {
         birthDate: '2000-01-01',
         mbti: 'INTJ',
@@ -65,7 +65,7 @@ describe('UserProfileService', () => {
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPostMock).toHaveBeenCalledWith(
-      '/api/v1/user/education',
+      '/education',
       {
         schoolType: 'high_school',
         schoolName: '서울고',
@@ -93,7 +93,7 @@ describe('UserProfileService', () => {
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPostMock).toHaveBeenCalledWith(
-      '/api/v1/user/preference',
+      '/preference',
       {
         programType: 'University',
         major: 'Computer Science',

@@ -20,7 +20,7 @@ export const saveUserProfile = async (
 ): Promise<ApiResponse<unknown>> => {
   return withRetry(async () => {
     const response = await userApi.put<ApiResponse<unknown>>(
-      '/api/v1/user/profile',
+      '/profile',
       payload
     )
     return response.data
@@ -32,7 +32,7 @@ export const saveUserEducation = async (
 ): Promise<ApiResponse<unknown>> => {
   return withRetry(async () => {
     const response = await userApi.post<ApiResponse<unknown>>(
-      '/api/v1/user/education',
+      '/education',
       payload
     )
     return response.data
@@ -44,7 +44,7 @@ export const saveUserPreference = async (
 ): Promise<ApiResponse<unknown>> => {
   return withRetry(async () => {
     const response = await userApi.post<ApiResponse<unknown>>(
-      '/api/v1/user/preference',
+      '/preference',
       payload
     )
     return response.data
