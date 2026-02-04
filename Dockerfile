@@ -23,8 +23,8 @@ FROM nginx:alpine
 # Copy built files from builder stage to nginx html directory
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy custom nginx config if needed (optional)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
+# SPA 클라이언트 라우팅 지원: /matching/result 등 직링크/새로고침 시 index.html로 fallback
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port 80
 EXPOSE 80
