@@ -101,10 +101,12 @@ const isTenantRequired = (url: string): boolean => {
   )
 }
 
+type TenantPolicy = 'required' | 'optional' | 'auto'
+
 /**
  * 공통 interceptor 설정 함수
  */
-const setupInterceptors = (instance: AxiosInstance, requireTenant: boolean = false) => {
+const setupInterceptors = (instance: AxiosInstance, tenantPolicy: TenantPolicy = 'auto') => {
   // Request interceptor
   instance.interceptors.request.use(
     (config: InternalAxiosRequestConfig) => {
@@ -120,7 +122,12 @@ const setupInterceptors = (instance: AxiosInstance, requireTenant: boolean = fal
       const fullUrl = config.baseURL ? `${config.baseURL}${url}` : url
       
       // 테넌트 필수 여부 확인
-      const tenantRequired = requireTenant || isTenantRequired(fullUrl)
+      const tenantRequired =
+        tenantPolicy === 'required'
+          ? true
+          : tenantPolicy === 'auto'
+            ? isTenantRequired(fullUrl)
+            : false
       
       if (tenantRequired && !tenantId) {
         // 테넌트 필수 API인데 Tenant ID가 없으면 요청 거부
@@ -304,7 +311,7 @@ export const matchingApi = axios.create({
 // - authApi: 일부 엔드포인트는 테넌트 선택적 (login, register)
 // - userApi: 모든 엔드포인트는 테넌트 필수
 // - auditApi: 모든 엔드포인트는 테넌트 필수
-setupInterceptors(authApi, false) // 경로별로 자동 판단
-setupInterceptors(userApi, true)  // 모든 요청에 테넌트 필수
-setupInterceptors(auditApi, true) // 모든 요청에 테넌트 필수
-setupInterceptors(matchingApi, false)
+setupInterceptors(authApi, 'auto') // 경로별로 자동 판단
+setupInterceptors(userApi, 'optional') // 데모/프로토타입: 테넌트 없으면 통과
+setupInterceptors(auditApi, 'required') // 모든 요청에 테넌트 필수
+setupInterceptors(matchingApi, 'optional')
