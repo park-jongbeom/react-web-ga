@@ -166,14 +166,14 @@ function Login() {
       const result = await login(validatedEmail, validationResult.data.password)
 
       if (result.success && result.data) {
-        // 성공 시 AuthContext에 인증 정보 설정
-        const { accessToken, refreshToken } = result.data
+        // 성공 시 AuthContext에 인증 정보 설정 (백엔드 API: 단일 token 반환)
+        const { token } = result.data
         
         // 사용자 정보 추출 (토큰에서)
         let user = undefined
         try {
           const tokenPayload = JSON.parse(
-            atob(accessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
+            atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))
           )
           user = {
             id: tokenPayload.sub || tokenPayload.userId || '',
@@ -190,8 +190,8 @@ function Login() {
           }
         }
         
-        // AuthContext에 인증 정보 설정
-        setAuth(accessToken, refreshToken, user)
+        // AuthContext에 인증 정보 설정 (refreshToken은 백엔드 미제공 시 빈 문자열)
+        setAuth(token, '', user)
         
         // 성공 시 대시보드로 리다이렉트
         navigate('/dashboard', { replace: true })

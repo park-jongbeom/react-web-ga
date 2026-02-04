@@ -53,8 +53,8 @@ function Signup() {
     )
 
     if (result.success && result.data) {
-      const { accessToken, refreshToken } = result.data
-      const payload = decodeJwtPayload(accessToken)
+      const { token } = result.data
+      const payload = decodeJwtPayload(token)
       const user = payload
         ? {
             id: payload.sub || payload.userId || '',
@@ -72,7 +72,7 @@ function Signup() {
             roles: [],
           }
 
-      setAuth(accessToken, refreshToken, user)
+      setAuth(token, '', user)
       navigate('/profile/step1', { replace: true })
       return
     }
