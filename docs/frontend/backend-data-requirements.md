@@ -24,7 +24,12 @@
 - 현재는 [matchingReportMock.ts](../../src/data/matchingReportMock.ts)에 정적 값으로 표기
 - API 응답에 필드가 추가되면 **정적 값 제거 → API 필드로 치환**
 
-## 4. 예시 응답 스키마 (확장)
+## 4. User Profile API 요청 형식
+- `user-profile.md` 기준으로 **snake_case 요청**을 사용
+- 매핑 유틸: [apiPayloadMapper.ts](../../src/utils/apiPayloadMapper.ts)
+- 검증 테스트: [apiPayloadMapper.test.ts](../../src/utils/__tests__/apiPayloadMapper.test.ts)
+
+## 5. 예시 응답 스키마 (확장)
 ```json
 {
   "success": true,
@@ -51,6 +56,6 @@
 }
 ```
 
-## 5. 협업 포인트
+## 6. 협업 포인트
 - 공식 명세: [04_BACKEND_COOPERATION.md](../04_BACKEND_COOPERATION.md), [matching.md](https://github.com/park-jongbeom/ga-api-platform/blob/main/docs/api/matching.md)
 - 필드 확장 시 프론트 타입(`src/types/matching.ts`) 업데이트 필요

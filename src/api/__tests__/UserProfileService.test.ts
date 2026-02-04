@@ -31,20 +31,18 @@ describe('UserProfileService', () => {
     })
 
     await saveUserProfile({
-      birthDate: '2000-01-01',
       mbti: 'INTJ',
-      traits: '차분함',
-      introduction: '안녕하세요',
+      tags: '차분함',
+      bio: '안녕하세요',
     })
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPutMock).toHaveBeenCalledWith(
       '/profile',
       {
-        birthDate: '2000-01-01',
         mbti: 'INTJ',
-        traits: '차분함',
-        introduction: '안녕하세요',
+        tags: '차분함',
+        bio: '안녕하세요',
       }
     )
   })
@@ -55,24 +53,28 @@ describe('UserProfileService', () => {
     })
 
     await saveUserEducation({
-      schoolType: 'high_school',
-      schoolName: '서울고',
-      schoolLocation: '서울',
+      school_name: '서울고',
+      school_location: '서울',
       gpa: 3.5,
-      englishTestType: 'TOEFL',
-      englishScore: 100,
+      english_test_type: 'TOEFL',
+      english_score: 100,
+      degree_type: '고등학교',
+      degree: '고등학교',
+      institution: '서울고',
     })
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPostMock).toHaveBeenCalledWith(
       '/education',
       {
-        schoolType: 'high_school',
-        schoolName: '서울고',
-        schoolLocation: '서울',
+        school_name: '서울고',
+        school_location: '서울',
         gpa: 3.5,
-        englishTestType: 'TOEFL',
-        englishScore: 100,
+        english_test_type: 'TOEFL',
+        english_score: 100,
+        degree_type: '고등학교',
+        degree: '고등학교',
+        institution: '서울고',
       }
     )
   })
@@ -83,24 +85,24 @@ describe('UserProfileService', () => {
     })
 
     await saveUserPreference({
-      programType: 'University',
-      major: 'Computer Science',
-      budget: 60000,
-      locations: ['California'],
-      studyDuration: '4_years',
-      stayAfterGraduation: 'yes',
+      target_program: 'university',
+      target_major: 'Computer Science',
+      target_location: 'California',
+      budget_usd: 60000,
+      career_goal: 'Computer Science',
+      preferred_track: '4_year',
     })
 
     expect(withRetry).toHaveBeenCalled()
     expect(userApiPostMock).toHaveBeenCalledWith(
       '/preference',
       {
-        programType: 'University',
-        major: 'Computer Science',
-        budget: 60000,
-        locations: ['California'],
-        studyDuration: '4_years',
-        stayAfterGraduation: 'yes',
+        target_program: 'university',
+        target_major: 'Computer Science',
+        target_location: 'California',
+        budget_usd: 60000,
+        career_goal: 'Computer Science',
+        preferred_track: '4_year',
       }
     )
   })

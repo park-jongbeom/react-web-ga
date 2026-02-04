@@ -50,26 +50,26 @@ export interface UserProfileRequest {
 }
 
 export interface UserEducationRequest {
-  schoolName: string
-  schoolLocation?: string
+  school_name: string
+  school_location?: string
   gpa?: number
-  gpaScale?: number
-  englishTestType?: 'TOEFL' | 'IELTS'
-  englishScore?: number
-  degreeType?: string
+  gpa_scale?: number
+  english_test_type?: 'TOEFL' | 'IELTS'
+  english_score?: number
+  degree_type?: string
   degree?: string
   major?: string
-  graduationDate?: string
+  graduation_date?: string
   institution?: string
 }
 
 export interface UserPreferenceRequest {
-  targetProgram?: string
-  targetMajor?: string
-  targetLocation?: string
-  budgetUsd?: number
-  careerGoal?: string
-  preferredTrack?: string
+  target_program?: string
+  target_major?: string
+  target_location?: string
+  budget_usd?: number
+  career_goal?: string
+  preferred_track?: string
 }
 
 export interface AuthError {

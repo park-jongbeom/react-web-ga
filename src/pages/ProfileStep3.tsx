@@ -21,6 +21,11 @@ import BaseSpinner from '../components/ui/BaseSpinner'
 import { useToast } from '../context/ToastContext'
 import { useAuth } from '../context/AuthContext'
 import { runMatching } from '../api/MatchingService'
+import {
+  mapEducationPayload,
+  mapPreferencePayload,
+  mapProfilePayload,
+} from '../utils/apiPayloadMapper'
 
 const steps = [
   { id: 'step-1', label: '학교 정보' },
@@ -75,46 +80,9 @@ function ProfileStep3() {
       const typedStep1: Step1SchoolInfoForm = step1
       const typedStep2: Step2PersonalInfoForm = step2
 
-      const educationPayload = {
-        schoolName: typedStep1.schoolName,
-        schoolLocation: typedStep1.schoolLocation || undefined,
-        gpa: Number(typedStep1.gpa),
-        gpaScale: 4.0,
-        englishTestType: typedStep1.englishTestType || undefined,
-        englishScore: Number(typedStep1.englishScore),
-        degreeType: typedStep1.schoolType === 'high_school' ? '고등학교' : '대학교',
-        degree: typedStep1.schoolType === 'high_school' ? '고등학교' : '대학교',
-        institution: typedStep1.schoolName,
-      }
-
-      const targetProgram =
-        values.programType === 'Community'
-          ? 'community_college'
-          : values.programType === 'University'
-            ? 'university'
-            : 'vocational'
-
-      const preferredTrack =
-        values.studyDuration === '2_years'
-          ? '2+2'
-          : values.studyDuration === '4_years'
-            ? '4_year'
-            : '1_year'
-
-      const preferencePayload = {
-        targetProgram,
-        targetMajor: values.major,
-        targetLocation: values.locations[0],
-        budgetUsd: values.budget,
-        careerGoal: values.major,
-        preferredTrack,
-      }
-
-      const profilePayload = {
-        mbti: typedStep2.mbti,
-        tags: typedStep2.traits,
-        bio: typedStep2.introduction,
-      }
+      const educationPayload = mapEducationPayload(typedStep1)
+      const preferencePayload = mapPreferencePayload(values)
+      const profilePayload = mapProfilePayload(typedStep2)
 
       await saveUserProfile(profilePayload as any)
       await saveUserEducation(educationPayload as any)

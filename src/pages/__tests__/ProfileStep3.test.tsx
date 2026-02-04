@@ -99,6 +99,30 @@ describe('ProfileStep3', () => {
     fireEvent.click(screen.getByRole('button', { name: '완료' }))
 
     await waitFor(() => {
+      expect(saveUserProfile).toHaveBeenCalledWith({
+        mbti: 'INTJ',
+        tags: '차분함',
+        bio: '안녕하세요',
+      })
+      expect(saveUserEducation).toHaveBeenCalledWith({
+        school_name: 'Test High School',
+        school_location: 'Seoul',
+        gpa: 3.8,
+        gpa_scale: 4.0,
+        english_test_type: 'TOEFL',
+        english_score: 90,
+        degree_type: '고등학교',
+        degree: '고등학교',
+        institution: 'Test High School',
+      })
+      expect(saveUserPreference).toHaveBeenCalledWith({
+        target_program: undefined,
+        target_major: undefined,
+        target_location: undefined,
+        budget_usd: 50000,
+        career_goal: undefined,
+        preferred_track: undefined,
+      })
       expect(runMatching).toHaveBeenCalledWith('user-1')
     })
   })
