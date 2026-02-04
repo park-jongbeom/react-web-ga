@@ -52,11 +52,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   })
 
   // 초기 로드 시 토큰 복원 (메모리로)
+  // Access Token만 있어도 복원 (백엔드가 단일 토큰만 반환하는 경우 대응)
   useEffect(() => {
     const storedAccessToken = getAccessToken()
-    const storedRefreshToken = getRefreshToken()
     
-    if (storedAccessToken && storedRefreshToken) {
+    if (storedAccessToken) {
       // 토큰 유효성 검증
       try {
         const payload = decodeJwtPayload(storedAccessToken)
@@ -64,9 +64,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           // 토큰이 유효하면 메모리에 로드
           setAccessToken(storedAccessToken)
           
-          // 사용자 정보 추출
+          // 사용자 정보 추출 (JWT payload 구조는 백엔드마다 상이할 수 있음)
           const userData: User = {
-            id: payload.sub || payload.userId || '',
+            id: payload.sub || payload.userId || payload.id || '',
             email: payload.email || '',
             roles: payload.roles ? (Array.isArray(payload.roles) ? payload.roles : [payload.roles]) : [],
             tenantId: payload.tenantId || tenantId || null,
