@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import BaseBadge from '../components/ui/BaseBadge'
 import BaseButton from '../components/ui/BaseButton'
 import BaseCard from '../components/ui/BaseCard'
@@ -15,6 +16,7 @@ interface Application {
 }
 
 function Dashboard() {
+  const navigate = useNavigate()
   const [userProfile] = useState({
     name: '홍길동',
     gpa: 3.5,
@@ -103,7 +105,7 @@ function Dashboard() {
     <BaseSection variant="tight" className="space-y-8">
       <div className="flex justify-between items-center">
         <BaseHeading level={2}>대시보드</BaseHeading>
-        <BaseButton>새 지원서 작성</BaseButton>
+        <BaseButton onClick={() => navigate('/profile/step1')}>새 지원서 작성</BaseButton>
       </div>
 
       {/* User Profile Card */}
@@ -146,7 +148,12 @@ function Dashboard() {
           </div>
         </div>
         <div className="mt-4 pt-4 border-t border-border">
-          <BaseButton variant="link" size="sm" className="px-0">
+          <BaseButton
+            variant="link"
+            size="sm"
+            className="px-0"
+            onClick={() => navigate('/profile/step1')}
+          >
             프로필 수정하기 →
           </BaseButton>
         </div>
