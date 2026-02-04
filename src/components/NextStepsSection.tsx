@@ -10,7 +10,7 @@ function NextStepsSection({ steps }: NextStepsSectionProps) {
   return (
     <div className="bg-primary-800 text-white rounded-2xl p-8">
       <BaseHeading level={3} className="text-white mb-6">
-        HOW TO APPLY: NEXT STEPS
+        지원 방법: 다음 단계
       </BaseHeading>
       <BaseGrid cols={4} gap="md">
         {steps.map((step) => (

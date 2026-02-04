@@ -85,20 +85,20 @@ describe('TopMatchDetail', () => {
     render(<TopMatchDetail item={itemWithExtras} />)
 
     expect(screen.getAllByText('UC Berkeley').length).toBeGreaterThan(0)
-    expect(screen.getByText('EST. ROI 12.5% Yearly')).toBeInTheDocument()
-    expect(screen.getByText('Average Starting Salary')).toBeInTheDocument()
+    expect(screen.getByText(/예상 ROI 12\.5%.*연간/)).toBeInTheDocument()
+    expect(screen.getByText('평균 초봉')).toBeInTheDocument()
     expect(screen.getByText('$85,000')).toBeInTheDocument()
-    expect(screen.getByText(/Global Ranking/)).toBeInTheDocument()
+    expect(screen.getByText(/글로벌 랭킹/)).toBeInTheDocument()
     expect(screen.getByText(/#4 \(Computer Science\)/)).toBeInTheDocument()
-    expect(screen.getByText('Alumni Network')).toBeInTheDocument()
+    expect(screen.getByText('동문 네트워크')).toBeInTheDocument()
     expect(screen.getByText('38,000+')).toBeInTheDocument()
   })
 
   it('배지와 버튼을 표시해야 한다', () => {
     render(<TopMatchDetail item={itemWithExtras} />)
 
-    expect(screen.getByText('Primary Recommendation')).toBeInTheDocument()
-    expect(screen.getByText('Download PDF Report')).toBeInTheDocument()
+    expect(screen.getByText('최우선 추천')).toBeInTheDocument()
+    expect(screen.getByText('PDF 리포트 다운로드')).toBeInTheDocument()
     expect(screen.getByText('OPT STEM ELIGIBLE')).toBeInTheDocument()
     expect(screen.getByText('ON-CAMPUS HOUSING')).toBeInTheDocument()
   })
@@ -107,7 +107,7 @@ describe('TopMatchDetail', () => {
     render(<TopMatchDetail item={itemWithNulls} />)
 
     expect(screen.getAllByText('Unknown School').length).toBeGreaterThan(0)
-    expect(screen.getByText(/EST\. ROI .* Yearly/)).toBeInTheDocument()
+    expect(screen.getByText(/예상 ROI .*연간/)).toBeInTheDocument()
     expect(screen.getAllByText('N/A').length).toBeGreaterThan(0)
   })
 })

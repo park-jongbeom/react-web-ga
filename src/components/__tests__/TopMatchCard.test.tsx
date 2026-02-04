@@ -40,8 +40,8 @@ describe('TopMatchCard', () => {
   it('1위 카드에서 강조 배지와 문구를 표시해야 한다', () => {
     const { container } = render(<TopMatchCard item={baseItem} isPrimary />)
 
-    expect(screen.getByText('98% MATCH')).toBeInTheDocument()
-    expect(screen.getByText('Rank #1 Recommendation')).toBeInTheDocument()
+    expect(screen.getByText('98% 매칭')).toBeInTheDocument()
+    expect(screen.getByText('1순위 추천')).toBeInTheDocument()
     expect(container.querySelector('.border-primary-600')).toBeInTheDocument()
   })
 
@@ -49,7 +49,7 @@ describe('TopMatchCard', () => {
     const secondItem = { ...baseItem, rank: 2, total_score: 92 }
     const { container } = render(<TopMatchCard item={secondItem} isPrimary={false} />)
 
-    expect(screen.getByText('92% Match Rate')).toBeInTheDocument()
+    expect(screen.getByText('92% 매칭')).toBeInTheDocument()
     expect(container.querySelector('.border-border')).toBeInTheDocument()
   })
 })

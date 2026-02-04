@@ -10,9 +10,9 @@ describe('MatchingIndicatorBars', () => {
       />
     )
 
-    expect(screen.getByText('Academic Fit')).toBeInTheDocument()
-    expect(screen.getByText('Career Outlook')).toBeInTheDocument()
-    expect(screen.getByText('Cost Efficiency')).toBeInTheDocument()
+    expect(screen.getByText('학업 적합도')).toBeInTheDocument()
+    expect(screen.getByText('진로 전망')).toBeInTheDocument()
+    expect(screen.getByText('비용 효율성')).toBeInTheDocument()
   })
 
   it('점수를 퍼센트로 표시해야 한다', () => {

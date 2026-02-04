@@ -10,7 +10,7 @@ type TopMatchCardProps = {
 
 function TopMatchCard({ item, isPrimary = false }: TopMatchCardProps) {
   const score = Math.round(item.total_score)
-  const matchLabel = isPrimary ? `${score}% MATCH` : `${score}% Match Rate`
+  const matchLabel = `${score}% 매칭`
 
   return (
     <BaseCard
@@ -25,7 +25,7 @@ function TopMatchCard({ item, isPrimary = false }: TopMatchCardProps) {
           variant="caption"
           className={isPrimary ? 'text-success-700' : 'text-foreground-muted'}
         >
-          {isPrimary ? 'Rank #1 Recommendation' : `Rank #${item.rank}`}
+          {isPrimary ? '1순위 추천' : `${item.rank}순위`}
         </BaseText>
       </div>
       <div>

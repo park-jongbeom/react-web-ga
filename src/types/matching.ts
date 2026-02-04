@@ -47,6 +47,12 @@ export interface MatchingResultItem {
   cons: string[]
   /** API 확장: 예상 ROI (숫자, %) */
   estimated_roi?: number
+  /** API 제공: 프론트 선형 게이지용 통합 지표 (백엔드 계산) */
+  indicator_scores?: {
+    academic_fit: number
+    career_outlook: number
+    cost_efficiency: number
+  }
 }
 
 export interface MatchingResponse {

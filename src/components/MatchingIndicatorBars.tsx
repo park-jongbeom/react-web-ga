@@ -7,9 +7,9 @@ type MatchingIndicatorBarsProps = {
 }
 
 const buildItems = (scores: IndicatorScores) => [
-  { label: 'Academic Fit', value: scores.academicFit, tone: 'primary' },
-  { label: 'Career Outlook', value: scores.careerOutlook, tone: 'primary' },
-  { label: 'Cost Efficiency', value: scores.costEfficiency, tone: 'accent' },
+  { label: '학업 적합도', value: scores.academicFit, tone: 'primary' },
+  { label: '진로 전망', value: scores.careerOutlook, tone: 'primary' },
+  { label: '비용 효율성', value: scores.costEfficiency, tone: 'accent' },
 ]
 
 function MatchingIndicatorBars({ scores, description }: MatchingIndicatorBarsProps) {

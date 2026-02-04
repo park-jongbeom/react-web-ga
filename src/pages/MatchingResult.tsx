@@ -101,23 +101,27 @@ function MatchingResult() {
       <BaseSection className="space-y-10">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between border-b border-border pb-6">
           <div className="flex items-center gap-4">
-            <img src="/logo.jpg" alt="GO ALMOND" className="h-12 w-12 rounded-full" />
+            <img
+              src="/logo.jpg"
+              alt="GO ALMOND"
+              className="h-12 w-auto object-contain rounded-lg"
+            />
             <div>
               <BaseText variant="caption" className="text-foreground-muted">
-                AI-MATCHING INTELLIGENCE
+                AI 매칭 인텔리전스
               </BaseText>
               <BaseHeading level={2}>GO ALMOND</BaseHeading>
             </div>
           </div>
           <div className="text-left md:text-right space-y-1">
             <BaseHeading level={1} className="text-2xl">
-              Personalized Study Report
+              맞춤형 학업 리포트
             </BaseHeading>
             <BaseText variant="caption" className="text-foreground-muted">
               User: {reportMeta.userLabel}
             </BaseText>
             <BaseText variant="caption" className="text-foreground-muted">
-              Ref: {reportMeta.refId} · Date: {reportMeta.date}
+              참조번호: {reportMeta.refId} · 날짜: {reportMeta.date}
             </BaseText>
           </div>
         </div>
@@ -127,7 +131,7 @@ function MatchingResult() {
             <div className="h-8 w-8 rounded-full bg-primary-50 text-success-600 flex items-center justify-center">
               ✓
             </div>
-            <BaseHeading level={3}>EXECUTIVE SUMMARY</BaseHeading>
+            <BaseHeading level={3}>종합 요약</BaseHeading>
           </div>
           <div className="grid gap-6 md:grid-cols-[1fr_240px] items-start">
             <BaseText className="text-foreground-muted">{executiveSummary}</BaseText>
@@ -155,7 +159,7 @@ function MatchingResult() {
               <div className="h-8 w-8 rounded-full bg-accent-100 text-accent-600 flex items-center justify-center">
                 ✦
               </div>
-              <BaseHeading level={3}>MATCHING INDICATORS</BaseHeading>
+              <BaseHeading level={3}>매칭 지표</BaseHeading>
             </div>
             <div className="grid gap-6 md:grid-cols-2 items-start">
               <div className="bg-surface rounded-xl p-4 border border-border">
@@ -175,7 +179,7 @@ function MatchingResult() {
               <div className="h-8 w-8 rounded-full bg-primary-50 text-success-600 flex items-center justify-center">
                 ✓
               </div>
-              <BaseHeading level={3}>DEEP DIVE: TOP MATCH</BaseHeading>
+              <BaseHeading level={3}>심층 분석: 최고 추천 학교</BaseHeading>
             </div>
             <TopMatchDetail item={topMatch} />
           </BasePanel>

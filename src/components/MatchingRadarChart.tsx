@@ -14,12 +14,12 @@ type MatchingRadarChartProps = {
 
 function MatchingRadarChart({ scores }: MatchingRadarChartProps) {
   const data = [
-    { category: 'ACADEMIC', value: scores.academic, fullMark: 100 },
-    { category: 'ENGLISH', value: scores.english, fullMark: 100 },
-    { category: 'BUDGET', value: scores.budget, fullMark: 100 },
-    { category: 'REGION', value: scores.location, fullMark: 100 },
-    { category: 'DURATION', value: scores.duration, fullMark: 100 },
-    { category: 'CAREER', value: scores.career, fullMark: 100 },
+    { category: '학업', value: scores.academic, fullMark: 100 },
+    { category: '영어', value: scores.english, fullMark: 100 },
+    { category: '예산', value: scores.budget, fullMark: 100 },
+    { category: '지역', value: scores.location, fullMark: 100 },
+    { category: '기간', value: scores.duration, fullMark: 100 },
+    { category: '진로', value: scores.career, fullMark: 100 },
   ]
 
   return (

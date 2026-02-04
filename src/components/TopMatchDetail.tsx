@@ -25,8 +25,8 @@ function TopMatchDetail({ item }: TopMatchDetailProps) {
   return (
     <BaseCard variant="outline" className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <BaseBadge className="bg-neutral-900 text-white">Primary Recommendation</BaseBadge>
-        <BaseButton size="sm">Download PDF Report</BaseButton>
+        <BaseBadge className="bg-neutral-900 text-white">최우선 추천</BaseBadge>
+        <BaseButton size="sm">PDF 리포트 다운로드</BaseButton>
       </div>
       <div className="grid gap-6 md:grid-cols-[120px_1fr_auto] items-start">
         <div className="flex items-center justify-center h-24 w-24 rounded-2xl bg-surface-subtle text-foreground font-semibold">
@@ -40,15 +40,15 @@ function TopMatchDetail({ item }: TopMatchDetailProps) {
             </BaseText>
           </div>
           <BaseText variant="caption" className="text-success-700">
-            Global Ranking: {rankingText}
+            글로벌 랭킹: {rankingText}
           </BaseText>
           <div className="grid gap-2 md:grid-cols-2">
             <div>
-              <BaseText variant="label">Average Starting Salary</BaseText>
+              <BaseText variant="label">평균 초봉</BaseText>
               <BaseText>{salaryText}</BaseText>
             </div>
             <div>
-              <BaseText variant="label">Alumni Network</BaseText>
+              <BaseText variant="label">동문 네트워크</BaseText>
               <BaseText>{networkText}</BaseText>
             </div>
           </div>
@@ -66,8 +66,8 @@ function TopMatchDetail({ item }: TopMatchDetailProps) {
           )}
         </div>
         <div className="bg-warning-50 border border-accent-500 rounded-xl px-4 py-3 text-center">
-          <BaseText variant="caption" className="text-warning-800 uppercase">
-            EST. ROI {roiText} Yearly
+          <BaseText variant="caption" className="text-warning-800">
+            예상 ROI {roiText} (연간)
           </BaseText>
         </div>
       </div>

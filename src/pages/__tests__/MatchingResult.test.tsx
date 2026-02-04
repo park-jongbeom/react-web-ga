@@ -78,7 +78,7 @@ describe('MatchingResult', () => {
     renderWithRouter(mockMatchingResult)
 
     await waitFor(() => {
-      expect(screen.getByText('Personalized Study Report')).toBeInTheDocument()
+      expect(screen.getByText('맞춤형 학업 리포트')).toBeInTheDocument()
     })
   })
 
@@ -94,7 +94,7 @@ describe('MatchingResult', () => {
     renderWithRouter(mockMatchingResult)
 
     await waitFor(() => {
-      expect(screen.getByText('EXECUTIVE SUMMARY')).toBeInTheDocument()
+      expect(screen.getByText('종합 요약')).toBeInTheDocument()
     })
   })
 
@@ -116,7 +116,7 @@ describe('MatchingResult', () => {
 
     await waitFor(() => {
       expect(screen.getAllByText('Test School 1').length).toBeGreaterThan(0)
-      expect(screen.getByText('95% MATCH')).toBeInTheDocument()
+      expect(screen.getByText('95% 매칭')).toBeInTheDocument()
     })
   })
 
@@ -124,10 +124,10 @@ describe('MatchingResult', () => {
     renderWithRouter(mockMatchingResult)
 
     await waitFor(() => {
-      expect(screen.getByText('MATCHING INDICATORS')).toBeInTheDocument()
-      expect(screen.getByText('DEEP DIVE: TOP MATCH')).toBeInTheDocument()
-      expect(screen.getByText('HOW TO APPLY: NEXT STEPS')).toBeInTheDocument()
-      expect(screen.getByText('CONFIDENTIAL - PAGE 01/01')).toBeInTheDocument()
+      expect(screen.getByText('매칭 지표')).toBeInTheDocument()
+      expect(screen.getByText('심층 분석: 최고 추천 학교')).toBeInTheDocument()
+      expect(screen.getByText('지원 방법: 다음 단계')).toBeInTheDocument()
+      expect(screen.getByText('기밀 - 1/1 페이지')).toBeInTheDocument()
     })
   })
 })

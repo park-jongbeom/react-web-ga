@@ -30,7 +30,7 @@ describe('NextStepsSection', () => {
   it('타이틀과 4단계 카드를 표시해야 한다', () => {
     render(<NextStepsSection steps={steps} />)
 
-    expect(screen.getByText('HOW TO APPLY: NEXT STEPS')).toBeInTheDocument()
+    expect(screen.getByText('지원 방법: 다음 단계')).toBeInTheDocument()
     expect(screen.getByText('Document Audit')).toBeInTheDocument()
     expect(screen.getByText('SOP Workshop')).toBeInTheDocument()
     expect(screen.getByText('Portal Access')).toBeInTheDocument()
