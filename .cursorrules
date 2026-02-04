@@ -26,3 +26,10 @@
 - `/docs/02_ARCHITECTURE_INTEGRATION.md` (시스템 구조 및 연동)
 - `/docs/03_DATA_DEFINITION.md` (데이터 명세)
 - `/docs/04_BACKEND_COOPERATION.md` (백엔드 협업 규격)
+
+### UI 개발 시 필수 참조
+화면 구성 작업 시 아래 문서를 반드시 확인하십시오.
+- `/docs/ui-components.md` (Base 컴포넌트 사용법 및 디자인 토큰)
+  - **Base 컴포넌트 우선 사용**: BaseButton, BaseInput, BaseCard, BaseHeading, BaseText 등 기구축된 컴포넌트를 활용하십시오.
+  - **디자인 토큰 준수**: 색상/간격 하드코딩 대신 디자인 토큰 기반 Tailwind 클래스(`bg-surface`, `text-primary-600` 등)를 사용하십시오.
+  - **Props 명세 준수**: 각 컴포넌트의 variant, size 등 Props를 정확히 따르십시오.

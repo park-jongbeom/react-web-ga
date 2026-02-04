@@ -16,7 +16,7 @@ vi.mock('../axiosInstance', () => ({
 }))
 
 vi.mock('../../utils/retry', () => ({
-  withRetry: (fn: () => Promise<unknown>) => fn(),
+  withRetry: vi.fn((fn: () => Promise<unknown>) => fn()),
 }))
 
 describe('UserProfileService', () => {

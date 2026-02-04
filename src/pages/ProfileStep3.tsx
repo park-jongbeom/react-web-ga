@@ -17,6 +17,8 @@ import { useStep3StudyPreferenceStorage } from '../hooks/useStep3StudyPreference
 import { saveUserEducation, saveUserPreference, saveUserProfile } from '../api/UserProfileService'
 import BaseSpinner from '../components/ui/BaseSpinner'
 import { useToast } from '../context/ToastContext'
+import { useAuth } from '../context/AuthContext'
+import { runMatching } from '../api/MatchingService'
 
 const steps = [
   { id: 'step-1', label: '학교 정보' },
@@ -31,6 +33,7 @@ function ProfileStep3() {
   const [isSaving, setIsSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
   const { pushToast } = useToast()
+  const { user } = useAuth()
 
   const handleComplete = async () => {
     const step1 = loadStep1SchoolInfo() ?? {}
@@ -67,15 +70,24 @@ function ProfileStep3() {
       await saveUserEducation(step1 as any)
       await saveUserPreference(values as any)
 
+      if (!user?.id) {
+        throw new Error('사용자 정보를 찾을 수 없습니다.')
+      }
+
+      const matchingResult = await runMatching(user.id)
+      sessionStorage.setItem('matchingResult', JSON.stringify(matchingResult))
+
       clearStep1SchoolInfo()
       clearStep2PersonalInfo()
       clearStep3StudyPreference()
 
-      pushToast('프로필 저장이 완료되었습니다.', 'success')
-      navigate('/dashboard')
+      pushToast('프로필 저장 및 매칭이 완료되었습니다.', 'success')
+      navigate('/matching/result', {
+        state: { matchingResult },
+      })
     } catch (error) {
-      setSaveError('저장에 실패했습니다. 잠시 후 다시 시도해주세요.')
-      pushToast('저장에 실패했습니다. 다시 시도해주세요.', 'error')
+      setSaveError('저장 또는 매칭에 실패했습니다. 잠시 후 다시 시도해주세요.')
+      pushToast('작업에 실패했습니다. 다시 시도해주세요.', 'error')
     } finally {
       setIsSaving(false)
     }

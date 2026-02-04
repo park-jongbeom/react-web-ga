@@ -1,5 +1,5 @@
 import BaseInput from './ui/BaseInput'
-import { BaseText } from './ui/Typography'
+import BaseSelect from './ui/BaseSelect'
 
 export type Step1SchoolInfoValues = {
   schoolType: 'high_school' | 'university'
@@ -27,26 +27,17 @@ function Step1SchoolInfo({
 }: Step1SchoolInfoProps) {
   return (
     <div className="space-y-6">
-      <div>
-        <BaseText variant="label" className="text-foreground">
-          출신학교 유형
-        </BaseText>
-        <div className="mt-2">
-          <select
-            value={values.schoolType}
-            onChange={(event) => onChange('schoolType', event.target.value)}
-            className="w-full rounded-lg border border-border bg-white text-gray-900 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-200"
-          >
-            <option value="high_school">고등학교</option>
-            <option value="university">대학교</option>
-          </select>
-        </div>
-        {errors.schoolType && (
-          <BaseText variant="caption" className="mt-2 text-danger-600">
-            {errors.schoolType}
-          </BaseText>
-        )}
-      </div>
+      <BaseSelect
+        id="schoolType"
+        label="출신학교 유형"
+        value={values.schoolType}
+        onChange={(event) => onChange('schoolType', event.target.value)}
+        hasError={!!errors.schoolType}
+        errorText={errors.schoolType}
+      >
+        <option value="high_school">고등학교</option>
+        <option value="university">대학교</option>
+      </BaseSelect>
 
       <BaseInput
         id="schoolName"
@@ -79,26 +70,17 @@ function Step1SchoolInfo({
         errorText={errors.gpa}
       />
 
-      <div>
-        <BaseText variant="label" className="text-foreground">
-          영어 시험 종류
-        </BaseText>
-        <div className="mt-2">
-          <select
-            value={values.englishTestType}
-            onChange={(event) => onChange('englishTestType', event.target.value)}
-            className="w-full rounded-lg border border-border bg-white text-gray-900 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-200"
-          >
-            <option value="TOEFL">TOEFL</option>
-            <option value="IELTS">IELTS</option>
-          </select>
-        </div>
-        {errors.englishTestType && (
-          <BaseText variant="caption" className="mt-2 text-danger-600">
-            {errors.englishTestType}
-          </BaseText>
-        )}
-      </div>
+      <BaseSelect
+        id="englishTestType"
+        label="영어 시험 종류"
+        value={values.englishTestType}
+        onChange={(event) => onChange('englishTestType', event.target.value)}
+        hasError={!!errors.englishTestType}
+        errorText={errors.englishTestType}
+      >
+        <option value="TOEFL">TOEFL</option>
+        <option value="IELTS">IELTS</option>
+      </BaseSelect>
 
       <BaseInput
         id="englishScore"

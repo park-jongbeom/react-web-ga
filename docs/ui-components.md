@@ -100,6 +100,19 @@
 <BaseTextarea id="message" label="문의 내용" rows={4} />
 ```
 
+### BaseSelect
+- 용도: 셀렉트 박스 (디자인 토큰 적용)
+- Props
+  - fieldSize: sm | md | lg
+  - helperText, errorText
+  - hasError: boolean
+```tsx
+<BaseSelect id="schoolType" label="출신학교 유형" value={value} onChange={onChange}>
+  <option value="high_school">고등학교</option>
+  <option value="university">대학교</option>
+</BaseSelect>
+```
+
 ## 3. 카드/패널/배지
 ### BaseCard
 - Props

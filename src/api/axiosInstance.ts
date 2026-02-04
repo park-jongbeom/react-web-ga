@@ -16,6 +16,7 @@ import type { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 const API_BASE_URL = 'https://go-almond.ddnsfree.com'
 const AUTH_API_BASE = `${API_BASE_URL}/api/v1/auth`
 const USER_API_BASE = `${API_BASE_URL}/api/v1/user`
+const MATCHING_API_BASE = `${API_BASE_URL}`
 const AUDIT_API_BASE = `${API_BASE_URL}/api/audit`
 
 // 전역 토큰 갱신 플래그 (무한 루프 방지)
@@ -289,6 +290,16 @@ export const auditApi = axios.create({
   timeout: 5000, // Audit Log는 짧은 타임아웃
 })
 
+// Matching API 인스턴스
+export const matchingApi = axios.create({
+  baseURL: MATCHING_API_BASE,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: false,
+  timeout: 15000, // 매칭은 상대적으로 시간이 길 수 있음
+})
+
 // 모든 인스턴스에 interceptor 설정
 // - authApi: 일부 엔드포인트는 테넌트 선택적 (login, register)
 // - userApi: 모든 엔드포인트는 테넌트 필수
@@ -296,3 +307,4 @@ export const auditApi = axios.create({
 setupInterceptors(authApi, false) // 경로별로 자동 판단
 setupInterceptors(userApi, true)  // 모든 요청에 테넌트 필수
 setupInterceptors(auditApi, true) // 모든 요청에 테넌트 필수
+setupInterceptors(matchingApi, false)

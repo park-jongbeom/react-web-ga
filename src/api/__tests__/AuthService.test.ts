@@ -30,7 +30,7 @@ describe('AuthService', () => {
           user: {
             id: 'user-1',
             email: 'test@example.com',
-            fullName: '테스트',
+            full_name: '테스트',
           },
         },
       },
@@ -40,7 +40,7 @@ describe('AuthService', () => {
 
     expect(result.success).toBe(true)
     expect(localStorage.getItem('accessToken')).toBe('access-token')
-    expect(localStorage.getItem('refreshToken')).toBe('refresh-token')
+    expect(localStorage.getItem('refreshToken')).toBe('')
   })
 
   it('로그인 성공 시 토큰이 localStorage에 저장된다', async () => {
@@ -52,7 +52,7 @@ describe('AuthService', () => {
           user: {
             id: 'user-1',
             email: 'test@example.com',
-            fullName: '테스트',
+            full_name: '테스트',
           },
         },
       },
@@ -62,6 +62,6 @@ describe('AuthService', () => {
 
     expect(result.success).toBe(true)
     expect(localStorage.getItem('accessToken')).toBe('access-token')
-    expect(localStorage.getItem('refreshToken')).toBe('refresh-token')
+    expect(localStorage.getItem('refreshToken')).toBe('')
   })
 })

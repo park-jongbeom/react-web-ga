@@ -233,10 +233,10 @@ function Home() {
 
       {/* AI Recommendation Section */}
       <BaseSection id="ai-recommendation">
-        <div className="bg-primary-600 rounded-xl p-12 text-white">
+        <div className="bg-primary-600 rounded-xl p-12 text-onPrimary">
           <BaseHeading
             level={2}
-            className="mb-6 text-center text-white"
+            className="mb-6 text-center text-onPrimary"
           >
             AI가 당신의 유학 경로를 설계합니다
           </BaseHeading>
@@ -294,7 +294,7 @@ function Home() {
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed ${
                         message.role === 'user'
-                          ? 'bg-primary-600 text-white'
+                          ? 'bg-primary-600 text-onPrimary'
                           : 'bg-surface text-foreground-muted border border-border'
                       }`}
                     >

@@ -1,6 +1,6 @@
 import BaseInput from './ui/BaseInput'
+import BaseSelect from './ui/BaseSelect'
 import BaseTextarea from './ui/BaseTextarea'
-import { BaseText } from './ui/Typography'
 
 export type Step2PersonalInfoValues = {
   birthDate: string
@@ -55,30 +55,21 @@ function Step2PersonalInfo({
         errorText={errors.birthDate}
       />
 
-      <div>
-        <BaseText variant="label" className="text-foreground">
-          MBTI
-        </BaseText>
-        <div className="mt-2">
-          <select
-            value={values.mbti}
-            onChange={(event) => onChange('mbti', event.target.value)}
-            className="w-full rounded-lg border border-border bg-white text-gray-900 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-primary-500 focus:ring-primary-200"
-          >
-            <option value="">선택하세요</option>
-            {MBTI_OPTIONS.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-        {errors.mbti && (
-          <BaseText variant="caption" className="mt-2 text-danger-600">
-            {errors.mbti}
-          </BaseText>
-        )}
-      </div>
+      <BaseSelect
+        id="mbti"
+        label="MBTI"
+        value={values.mbti}
+        onChange={(event) => onChange('mbti', event.target.value)}
+        hasError={!!errors.mbti}
+        errorText={errors.mbti}
+      >
+        <option value="">선택하세요</option>
+        {MBTI_OPTIONS.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </BaseSelect>
 
       <BaseTextarea
         id="traits"

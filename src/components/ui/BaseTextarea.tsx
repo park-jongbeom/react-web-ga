@@ -34,7 +34,7 @@ function BaseTextarea({
       )}
       <textarea
         id={id}
-        className={`w-full rounded-lg border border-border bg-white text-gray-900 focus:outline-none focus:ring-2 ${
+        className={`w-full rounded-lg border border-border bg-surface text-foreground focus:outline-none focus:ring-2 ${
           showError
             ? 'border-danger-300 focus:border-danger-400 focus:ring-danger-100'
             : 'border-border focus:border-primary-500 focus:ring-primary-200'

@@ -5,6 +5,7 @@
 export interface ApiResponse<T> {
   success: boolean
   data: T | null
+  code?: string | null
   message: string | null
   timestamp: string
 }
@@ -25,7 +26,7 @@ export interface LoginResponse {
   user: {
     id: string
     email: string
-    fullName?: string
+    full_name?: string
   }
 }
 

@@ -1,6 +1,6 @@
-import type { InputHTMLAttributes } from 'react'
+import type { SelectHTMLAttributes } from 'react'
 
-type BaseInputProps = InputHTMLAttributes<HTMLInputElement> & {
+type BaseSelectProps = SelectHTMLAttributes<HTMLSelectElement> & {
   label?: string
   id: string
   hasError?: boolean
@@ -10,7 +10,7 @@ type BaseInputProps = InputHTMLAttributes<HTMLInputElement> & {
   fieldSize?: 'sm' | 'md' | 'lg'
 }
 
-function BaseInput({
+function BaseSelect({
   label,
   id,
   hasError = false,
@@ -19,8 +19,9 @@ function BaseInput({
   helperText,
   errorText,
   fieldSize = 'md',
+  children,
   ...props
-}: BaseInputProps) {
+}: BaseSelectProps) {
   const showError = hasError || Boolean(errorText)
   return (
     <div className={containerClassName}>
@@ -32,7 +33,7 @@ function BaseInput({
           {label}
         </label>
       )}
-      <input
+      <select
         id={id}
         className={`w-full rounded-lg border border-border bg-surface text-foreground focus:outline-none focus:ring-2 ${
           showError
@@ -46,7 +47,9 @@ function BaseInput({
               : 'px-4 py-3 text-sm'
         } ${className}`.trim()}
         {...props}
-      />
+      >
+        {children}
+      </select>
       {errorText && (
         <p className="mt-2 text-xs text-danger-600">{errorText}</p>
       )}
@@ -57,4 +60,4 @@ function BaseInput({
   )
 }
 
-export default BaseInput
+export default BaseSelect

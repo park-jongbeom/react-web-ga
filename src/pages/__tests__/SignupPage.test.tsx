@@ -7,6 +7,12 @@ vi.mock('../../api/AuthService', () => ({
   register: vi.fn(),
 }))
 
+vi.mock('../../context/AuthContext', () => ({
+  useAuth: () => ({
+    setAuth: vi.fn(),
+  }),
+}))
+
 describe('Signup 페이지', () => {
   it('회원가입 제목과 폼이 렌더링된다', () => {
     render(

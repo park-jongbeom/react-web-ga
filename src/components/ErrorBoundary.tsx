@@ -10,6 +10,8 @@
 
 import React, { Component } from 'react'
 import type { ReactNode } from 'react'
+import BaseButton from './ui/BaseButton'
+import BaseLinkButton from './ui/BaseLinkButton'
 
 interface ErrorBoundaryProps {
   children: ReactNode
@@ -167,22 +169,19 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
                   {sanitized.message}
                 </p>
                 <div className="mt-6">
-                  <button
+                  <BaseButton
+                    type="button"
                     onClick={this.handleReset}
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
+                    variant="primary"
+                    className="w-full"
                   >
                     다시 시도
-                  </button>
+                  </BaseButton>
                 </div>
                 <div className="mt-4">
-                  <button
-                    onClick={() => {
-                      window.location.href = '/'
-                    }}
-                    className="text-sm text-primary-600 hover:text-primary-500"
-                  >
+                  <BaseLinkButton to="/" variant="link" size="sm">
                     홈으로 돌아가기
-                  </button>
+                  </BaseLinkButton>
                 </div>
               </div>
             </div>
