@@ -16,44 +16,11 @@ function Home() {
   const [input, setInput] = useState('')
 
   useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: 'debug-session',
-        runId: 'pre-fix',
-        hypothesisId: 'H1',
-        location: 'Home.tsx:init',
-        message: 'AI 상담 초기 상태',
-        data: {
-          title: aiConsultData.title,
-          suggestedCount: aiConsultData.suggestedPrompts.length,
-          initialMessageCount: aiConsultData.messages.length,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {})
-    // #endregion
+    // 초기 상태 로드
   }, [])
 
   const handleSend = () => {
     const trimmed = input.trim()
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: 'debug-session',
-        runId: 'pre-fix',
-        hypothesisId: 'H2',
-        location: 'Home.tsx:handleSend:pre',
-        message: '전송 클릭 전 입력값',
-        data: { inputLength: input.length, trimmedLength: trimmed.length },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {})
-    // #endregion
     if (!trimmed) return
 
     const now = Date.now()
@@ -70,40 +37,10 @@ function Home() {
 
     setMessages((prev) => [...prev, userMessage, assistantMessage])
     setInput('')
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: 'debug-session',
-        runId: 'pre-fix',
-        hypothesisId: 'H2',
-        location: 'Home.tsx:handleSend:post',
-        message: '메시지 추가 후 예상 길이',
-        data: { nextMessageCount: messages.length + 2 },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {})
-    // #endregion
   }
 
   const handleSuggestedPrompt = (prompt: string) => {
     setInput(prompt)
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f4e8534c-047d-4166-93da-d8d0b4cde43e', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sessionId: 'debug-session',
-        runId: 'pre-fix',
-        hypothesisId: 'H3',
-        location: 'Home.tsx:handleSuggestedPrompt',
-        message: '추천 질문 클릭',
-        data: { promptLength: prompt.length },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {})
-    // #endregion
   }
 
   return (
