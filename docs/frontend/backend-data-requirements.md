@@ -1,61 +1,39 @@
-# 매칭 리포트 백엔드 데이터 요구사항
+# 매칭 결과 백엔드 데이터 요구사항
 
-## 1. 목적
-- 매칭 결과 리포트 화면에서 **정적/더미로 표시 중인 값**을 실제 데이터로 대체하기 위함
-- 투자자 데모용 리포트 완성도 향상 및 사용자 신뢰도 확보
+## 상태: 확장 필드 연동 완료
 
-## 2. 추가 필요 필드 (제안)
+매칭 API 확장 필드(ROI, 급여, 랭킹, 네트워크, 배지)는 백엔드에서 제공하며, 프론트엔드에서 연동 완료되었습니다.
 
-### 2.1 School 확장 필드
-| 필드 | 타입 | 예시 | 설명 |
-|------|------|------|------|
-| `global_ranking` | string | `#4` | 글로벌 랭킹 표시 |
-| `ranking_field` | string | `Computer Science` | 랭킹 기준 전공 |
-| `average_salary` | number | `85000` | 평균 초봉 (USD) |
-| `alumni_network_count` | number | `38000` | 동문 네트워크 규모 |
-| `feature_badges` | string[] | `["OPT STEM ELIGIBLE", "ON-CAMPUS HOUSING"]` | 특징 배지 |
+---
 
-### 2.2 MatchingResultItem 확장 필드
-| 필드 | 타입 | 예시 | 설명 |
-|------|------|------|------|
-| `estimated_roi` | number | `12.5` | 연간 예상 ROI (%) |
+## API 필드 매핑 가이드
 
-## 3. 프론트 반영 방식
-- 현재는 [matchingReportMock.ts](../../src/data/matchingReportMock.ts)에 정적 값으로 표기
-- API 응답에 필드가 추가되면 **정적 값 제거 → API 필드로 치환**
+### MatchingResultItem 확장
 
-## 4. User Profile API 요청 형식
-- `user-profile.md` 기준으로 **snake_case 요청**을 사용
-- 매핑 유틸: [apiPayloadMapper.ts](../../src/utils/apiPayloadMapper.ts)
-- 검증 테스트: [apiPayloadMapper.test.ts](../../src/utils/__tests__/apiPayloadMapper.test.ts)
+| API 필드 (snake_case) | 타입 | 프론트 표시 | 비고 |
+|------------------------|------|-------------|------|
+| `estimated_roi` | number | `formatRoi()` → "12.5%" 또는 "N/A" | 연간 예상 ROI (%) |
 
-## 5. 예시 응답 스키마 (확장)
-```json
-{
-  "success": true,
-  "data": {
-    "matching_id": "uuid",
-    "user_id": "uuid",
-    "results": [
-      {
-        "rank": 1,
-        "total_score": 98,
-        "estimated_roi": 12.5,
-        "school": {
-          "id": "uuid",
-          "name": "UC Berkeley",
-          "global_ranking": "#4",
-          "ranking_field": "Computer Science",
-          "average_salary": 85000,
-          "alumni_network_count": 38000,
-          "feature_badges": ["OPT STEM ELIGIBLE", "ON-CAMPUS HOUSING"]
-        }
-      }
-    ]
-  }
-}
-```
+### School 확장
 
-## 6. 협업 포인트
-- 공식 명세: [04_BACKEND_COOPERATION.md](../04_BACKEND_COOPERATION.md), [matching.md](https://github.com/park-jongbeom/ga-api-platform/blob/main/docs/api/matching.md)
-- 필드 확장 시 프론트 타입(`src/types/matching.ts`) 업데이트 필요
+| API 필드 (snake_case) | 타입 | 프론트 표시 | 비고 |
+|------------------------|------|-------------|------|
+| `global_ranking` | string \| null | `formatRanking()` 조합 | 예: "#4" |
+| `ranking_field` | string \| null | `formatRanking()` 조합 | 예: "Computer Science" |
+| `average_salary` | number \| null | `formatSalary()` → "$85,000" 또는 "N/A" | 평균 초봉 |
+| `alumni_network_count` | number \| null | `formatNetwork()` → "38,000+" 또는 "N/A" | 동문 네트워크 수 |
+| `feature_badges` | string[] | 그대로 배지 목록 렌더 | OPT STEM, ON-CAMPUS HOUSING 등 |
+
+### 포맷팅 유틸
+
+- **위치**: `src/utils/matchingDataHelper.ts`
+- **함수**: `formatRoi`, `formatSalary`, `formatRanking`, `formatNetwork`
+- null/undefined 시 "N/A" 반환
+
+---
+
+## 참고
+
+- 타입 정의: `src/types/matching.ts` (School, MatchingResultItem)
+- 사용 컴포넌트: `TopMatchDetail` — `item` prop만 받고 확장 필드는 item 내부에서 읽음
+- 백엔드 API 명세: [matching.md](https://github.com/park-jongbeom/ga-api-platform/blob/main/docs/api/matching.md)

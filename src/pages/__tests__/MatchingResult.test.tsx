@@ -16,6 +16,7 @@ const mockMatchingResult: MatchingResponse = {
   results: [
     {
       rank: 1,
+      estimated_roi: 11.2,
       school: {
         id: 'school-1',
         name: 'Test School 1',
@@ -24,6 +25,11 @@ const mockMatchingResult: MatchingResponse = {
         city: 'Los Angeles',
         tuition: 20000,
         image_url: 'https://example.com/image.jpg',
+        global_ranking: '#10',
+        ranking_field: 'CS',
+        average_salary: 72000,
+        alumni_network_count: 15000,
+        feature_badges: ['STEM', 'OPT'],
       },
       program: {
         id: 'program-1',

@@ -4,7 +4,6 @@ import type {
   MatchingResultItem,
   NextStepItem,
   ReportMeta,
-  TopMatchExtras,
 } from '../types/matching'
 
 const formatReportDate = (rawDate?: string): string => {
@@ -59,13 +58,6 @@ export const matchingReportMock = {
   pageLabel: 'CONFIDENTIAL - PAGE 01/01',
   indicatorDescription:
     'Your strongest alignment appears in academic fit and career outlook, with budget considerations optimized for ROI.',
-  topMatchExtras: {
-    estimatedRoi: '12.5%',
-    averageSalary: '$85,000',
-    globalRanking: '#4 (Computer Science)',
-    alumniNetwork: '38,000+',
-    featureBadges: ['OPT STEM ELIGIBLE', 'ON-CAMPUS HOUSING', 'INDUSTRY PARTNERSHIPS'],
-  } satisfies TopMatchExtras,
   nextSteps: [
     {
       id: 1,

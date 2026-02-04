@@ -177,7 +177,7 @@ function MatchingResult() {
               </div>
               <BaseHeading level={3}>DEEP DIVE: TOP MATCH</BaseHeading>
             </div>
-            <TopMatchDetail item={topMatch} extras={matchingReportMock.topMatchExtras} />
+            <TopMatchDetail item={topMatch} />
           </BasePanel>
         )}
 

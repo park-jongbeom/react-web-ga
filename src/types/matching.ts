@@ -15,6 +15,16 @@ export interface School {
   city: string
   tuition: number
   image_url: string
+  /** API 확장: 글로벌 랭킹 표기 (예: "#4 (Computer Science)") */
+  global_ranking?: string | null
+  /** API 확장: 랭킹 분야 */
+  ranking_field?: string | null
+  /** API 확장: 평균 초봉 (숫자) */
+  average_salary?: number | null
+  /** API 확장: 동문 네트워크 수 */
+  alumni_network_count?: number | null
+  /** API 확장: 특징 배지 목록 */
+  feature_badges?: string[]
 }
 
 export interface Program {
@@ -35,6 +45,8 @@ export interface MatchingResultItem {
   explanation: string
   pros: string[]
   cons: string[]
+  /** API 확장: 예상 ROI (숫자, %) */
+  estimated_roi?: number
 }
 
 export interface MatchingResponse {
@@ -61,14 +73,6 @@ export interface IndicatorScores {
   academicFit: number
   careerOutlook: number
   costEfficiency: number
-}
-
-export interface TopMatchExtras {
-  estimatedRoi: string
-  averageSalary: string
-  globalRanking: string
-  alumniNetwork: string
-  featureBadges: string[]
 }
 
 export interface NextStepItem {

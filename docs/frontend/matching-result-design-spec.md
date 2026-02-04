@@ -167,29 +167,24 @@
 
 ### 4.3 데이터 Gap
 
-현재 API(`MatchingResultItem`, `School`, `Program`)에 없는 필드:
-- ROI (estimated)
-- 평균 초봉 (average starting salary)
-- 글로벌/전공 랭킹
-- 네트워크 규모 (alumni in tech 등)
-- 특징 배지 (OPT STEM, ON-CAMPUS HOUSING, INDUSTRY PARTNERSHIPS 등)
+**이제 API에서 제공** (매칭 API 확장 필드 연동 완료):
+- **MatchingResultItem**: `estimated_roi` (number)
+- **School**: `global_ranking`, `ranking_field`, `average_salary`, `alumni_network_count`, `feature_badges[]`
+- 프론트는 `src/utils/matchingDataHelper.ts`로 포맷 후 표시, null 시 "N/A" 등 기본값 표시
 
 ### 4.4 프론트 정적/더미 데이터 목록 (현 단계)
 
-아래 항목은 **백엔드 미제공 시 프론트에서 정적/더미 값으로 표시**합니다.
-실제 연동 가능 시 즉시 대체하도록 합니다.
+**API 제공 (연동 완료)**: ROI, 평균 초봉, 글로벌 랭킹, 네트워크 규모, 특징 배지 — 백엔드 응답 필드 사용.
 
-- **ROI**: `12.5%` (연간 예상 ROI)
-- **평균 초봉**: `$85,000`
-- **글로벌 랭킹**: `#4 (Computer Science)`
-- **네트워크 규모**: `38,000+`
-- **특징 배지**: `OPT STEM ELIGIBLE`, `ON-CAMPUS HOUSING`, `INDUSTRY PARTNERSHIPS`
+아래 항목은 **아직 백엔드 미제공**이며 프론트 정적/더미 값으로 표시합니다.
+
 - **Next Steps**: Document Audit / SOP Workshop / Portal Access / Visa Prep
 - **설명 박스 문구**: Career/Academic/Cost 지표 기반 요약 문장
+- **푸터/페이지 라벨**: footerText, pageLabel
 
 **정적 값 출처**: [src/data/matchingReportMock.ts](../../src/data/matchingReportMock.ts)
 
-**백엔드 전달용 요구사항 문서**: [backend-data-requirements.md](./backend-data-requirements.md)
+**API 필드 매핑 가이드**: [backend-data-requirements.md](./backend-data-requirements.md)
 
 ---
 
@@ -243,3 +238,4 @@
 
 - **2026-02-04**: 초기 작성 (레퍼런스 이미지 기반 화면 구성 분석, Gap 분석, 로드맵)
 - **2026-02-04**: 프론트 정적/더미 데이터 목록 및 백엔드 요구사항 문서 링크 추가
+- **2026-02-04**: 매칭 API 확장 필드 연동 완료 — ROI/급여/랭킹/네트워크/배지 API 제공 반영, 4.3·4.4 업데이트
