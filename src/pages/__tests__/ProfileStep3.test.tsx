@@ -35,8 +35,19 @@ vi.mock('../../utils/validation', () => ({
 }))
 
 vi.mock('../../utils/profileStorage', () => ({
-  loadStep1SchoolInfo: () => ({ schoolName: 'Test' }),
-  loadStep2PersonalInfo: () => ({ mbti: 'INTJ' }),
+  loadStep1SchoolInfo: () => ({
+    schoolType: 'high_school',
+    schoolName: 'Test High School',
+    schoolLocation: 'Seoul',
+    gpa: '3.8',
+    englishTestType: 'TOEFL',
+    englishScore: '90',
+  }),
+  loadStep2PersonalInfo: () => ({
+    mbti: 'INTJ',
+    traits: '차분함',
+    introduction: '안녕하세요',
+  }),
   loadStep3StudyPreference: () => null,
   saveStep3StudyPreference: vi.fn(),
   clearStep1SchoolInfo: vi.fn(),

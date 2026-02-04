@@ -66,9 +66,50 @@ function ProfileStep3() {
     setIsSaving(true)
 
     try {
-      await saveUserProfile(step2 as any)
-      await saveUserEducation(step1 as any)
-      await saveUserPreference(values as any)
+      const educationPayload = {
+        schoolName: step1.schoolName,
+        schoolLocation: step1.schoolLocation || undefined,
+        gpa: Number(step1.gpa),
+        gpaScale: 4.0,
+        englishTestType: step1.englishTestType || undefined,
+        englishScore: Number(step1.englishScore),
+        degreeType: step1.schoolType === 'high_school' ? '고등학교' : '대학교',
+        degree: step1.schoolType === 'high_school' ? '고등학교' : '대학교',
+        institution: step1.schoolName,
+      }
+
+      const targetProgram =
+        values.programType === 'Community'
+          ? 'community_college'
+          : values.programType === 'University'
+            ? 'university'
+            : 'vocational'
+
+      const preferredTrack =
+        values.studyDuration === '2_years'
+          ? '2+2'
+          : values.studyDuration === '4_years'
+            ? '4_year'
+            : '1_year'
+
+      const preferencePayload = {
+        targetProgram,
+        targetMajor: values.major,
+        targetLocation: values.locations[0],
+        budgetUsd: values.budget,
+        careerGoal: values.major,
+        preferredTrack,
+      }
+
+      const profilePayload = {
+        mbti: step2.mbti,
+        tags: step2.traits,
+        bio: step2.introduction,
+      }
+
+      await saveUserProfile(profilePayload as any)
+      await saveUserEducation(educationPayload as any)
+      await saveUserPreference(preferencePayload as any)
 
       if (!user?.id) {
         throw new Error('사용자 정보를 찾을 수 없습니다.')

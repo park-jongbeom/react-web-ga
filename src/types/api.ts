@@ -44,28 +44,32 @@ export interface RefreshResponse {
 }
 
 export interface UserProfileRequest {
-  birthDate: string
-  mbti: string
-  traits?: string
-  introduction?: string
+  mbti?: string
+  tags?: string
+  bio?: string
 }
 
 export interface UserEducationRequest {
-  schoolType: 'high_school' | 'university'
   schoolName: string
-  schoolLocation: string
-  gpa: number
-  englishTestType: 'TOEFL' | 'IELTS'
-  englishScore: number
+  schoolLocation?: string
+  gpa?: number
+  gpaScale?: number
+  englishTestType?: 'TOEFL' | 'IELTS'
+  englishScore?: number
+  degreeType?: string
+  degree?: string
+  major?: string
+  graduationDate?: string
+  institution?: string
 }
 
 export interface UserPreferenceRequest {
-  programType: 'Vocational' | 'Community' | 'University'
-  major: string
-  budget: number
-  locations: string[]
-  studyDuration: '1_year' | '2_years' | '4_years'
-  stayAfterGraduation: 'yes' | 'no'
+  targetProgram?: string
+  targetMajor?: string
+  targetLocation?: string
+  budgetUsd?: number
+  careerGoal?: string
+  preferredTrack?: string
 }
 
 export interface AuthError {
