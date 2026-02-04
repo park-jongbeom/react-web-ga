@@ -12,6 +12,8 @@ import {
   clearStep1SchoolInfo,
   clearStep2PersonalInfo,
   clearStep3StudyPreference,
+  type Step1SchoolInfoForm,
+  type Step2PersonalInfoForm,
 } from '../utils/profileStorage'
 import { useStep3StudyPreferenceStorage } from '../hooks/useStep3StudyPreferenceStorage'
 import { saveUserEducation, saveUserPreference, saveUserProfile } from '../api/UserProfileService'
@@ -36,11 +38,11 @@ function ProfileStep3() {
   const { user } = useAuth()
 
   const handleComplete = async () => {
-    const step1 = loadStep1SchoolInfo() ?? {}
-    const step2 = loadStep2PersonalInfo() ?? {}
+    const step1 = loadStep1SchoolInfo()
+    const step2 = loadStep2PersonalInfo()
     const validation = validateProfileSteps({
-      step1,
-      step2,
+      step1: step1 ?? {},
+      step2: step2 ?? {},
       step3: values,
     })
 
@@ -66,16 +68,23 @@ function ProfileStep3() {
     setIsSaving(true)
 
     try {
+      if (!step1 || !step2) {
+        throw new Error('프로필 정보를 찾을 수 없습니다.')
+      }
+
+      const typedStep1: Step1SchoolInfoForm = step1
+      const typedStep2: Step2PersonalInfoForm = step2
+
       const educationPayload = {
-        schoolName: step1.schoolName,
-        schoolLocation: step1.schoolLocation || undefined,
-        gpa: Number(step1.gpa),
+        schoolName: typedStep1.schoolName,
+        schoolLocation: typedStep1.schoolLocation || undefined,
+        gpa: Number(typedStep1.gpa),
         gpaScale: 4.0,
-        englishTestType: step1.englishTestType || undefined,
-        englishScore: Number(step1.englishScore),
-        degreeType: step1.schoolType === 'high_school' ? '고등학교' : '대학교',
-        degree: step1.schoolType === 'high_school' ? '고등학교' : '대학교',
-        institution: step1.schoolName,
+        englishTestType: typedStep1.englishTestType || undefined,
+        englishScore: Number(typedStep1.englishScore),
+        degreeType: typedStep1.schoolType === 'high_school' ? '고등학교' : '대학교',
+        degree: typedStep1.schoolType === 'high_school' ? '고등학교' : '대학교',
+        institution: typedStep1.schoolName,
       }
 
       const targetProgram =
@@ -102,9 +111,9 @@ function ProfileStep3() {
       }
 
       const profilePayload = {
-        mbti: step2.mbti,
-        tags: step2.traits,
-        bio: step2.introduction,
+        mbti: typedStep2.mbti,
+        tags: typedStep2.traits,
+        bio: typedStep2.introduction,
       }
 
       await saveUserProfile(profilePayload as any)
