@@ -15,12 +15,16 @@ type TopMatchDetailProps = {
 }
 
 function TopMatchDetail({ item }: TopMatchDetailProps) {
-  const { school } = item
+  const { school, explanation, pros, cons } = item
   const roiText = formatRoi(item.estimated_roi ?? null)
   const salaryText = formatSalary(school.average_salary ?? null)
   const rankingText = formatRanking(school.global_ranking ?? null, school.ranking_field ?? null)
   const networkText = formatNetwork(school.alumni_network_count ?? null)
   const badges = school.feature_badges ?? []
+  const employmentRateText =
+    typeof school.employment_rate === 'number' ? `${school.employment_rate}%` : 'N/A'
+  const hasDormitory = school.facilities?.dormitory ? '제공' : '미제공'
+  const eslText = school.esl_program?.available ? '제공' : '미제공'
 
   return (
     <BaseCard variant="outline" className="space-y-6">
@@ -52,6 +56,20 @@ function TopMatchDetail({ item }: TopMatchDetailProps) {
               <BaseText>{networkText}</BaseText>
             </div>
           </div>
+          <div className="grid gap-2 md:grid-cols-3">
+            <div>
+              <BaseText variant="label">취업률</BaseText>
+              <BaseText>{employmentRateText}</BaseText>
+            </div>
+            <div>
+              <BaseText variant="label">기숙사</BaseText>
+              <BaseText>{hasDormitory}</BaseText>
+            </div>
+            <div>
+              <BaseText variant="label">ESL 프로그램</BaseText>
+              <BaseText>{eslText}</BaseText>
+            </div>
+          </div>
           {badges.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {badges.map((badge) => (
@@ -71,6 +89,51 @@ function TopMatchDetail({ item }: TopMatchDetailProps) {
           </BaseText>
         </div>
       </div>
+
+      {explanation && (
+        <div className="bg-primary-50 rounded-xl p-4 border border-primary-200">
+          <BaseHeading level={3} className="text-base mb-2">
+            추천 이유
+          </BaseHeading>
+          <BaseText variant="caption" className="text-primary-800">
+            {explanation}
+          </BaseText>
+        </div>
+      )}
+
+      {pros.length > 0 && (
+        <div>
+          <BaseHeading level={3} className="text-base mb-2">
+            장점
+          </BaseHeading>
+          <ul className="list-disc list-inside space-y-1">
+            {pros.map((pro, index) => (
+              <li key={`pro-${index}`}>
+                <BaseText variant="caption" className="text-success-700 inline">
+                  {pro}
+                </BaseText>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {cons.length > 0 && (
+        <div>
+          <BaseHeading level={3} className="text-base mb-2">
+            유의 사항
+          </BaseHeading>
+          <ul className="list-disc list-inside space-y-1">
+            {cons.map((con, index) => (
+              <li key={`con-${index}`}>
+                <BaseText variant="caption" className="text-danger-700 inline">
+                  {con}
+                </BaseText>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </BaseCard>
   )
 }

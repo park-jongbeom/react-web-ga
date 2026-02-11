@@ -25,6 +25,33 @@ export interface School {
   alumni_network_count?: number | null
   /** API 확장: 특징 배지 목록 */
   feature_badges?: string[]
+  /** API 확장: 취업률 */
+  employment_rate?: number | null
+  /** API 확장: 시설 정보 */
+  facilities?: {
+    dormitory: boolean
+    dining: boolean
+    gym: boolean
+    library: boolean
+    lab: boolean
+    entertainment: boolean
+  } | null
+  /** API 확장: 직원 정보(원문 JSON/문자열) */
+  staff_info?: string | null
+  /** API 확장: ESL 프로그램 */
+  esl_program?: {
+    available: boolean
+    description?: string | null
+  } | null
+  /** API 확장: 유학생 지원 */
+  international_support?: {
+    available: boolean
+    services: string[]
+    description?: string | null
+  } | null
+  /** API 확장: 유학생 담당 연락처 */
+  international_email?: string | null
+  international_phone?: string | null
 }
 
 export interface Program {
@@ -63,6 +90,10 @@ export interface MatchingResponse {
   results: MatchingResultItem[]
   created_at: string
   message?: string
+  /** API 확장: 지표 해설 문구 */
+  indicator_description?: string | null
+  /** API 확장: 사용자 맞춤 다음 단계 */
+  next_steps?: NextStepItem[] | null
 }
 
 export interface MatchingRunRequest {
@@ -85,4 +116,5 @@ export interface NextStepItem {
   id: number
   title: string
   description: string
+  priority?: 'urgent' | 'recommended' | 'optional'
 }

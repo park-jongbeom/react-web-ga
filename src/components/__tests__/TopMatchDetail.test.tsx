@@ -18,6 +18,19 @@ const itemWithExtras: MatchingResultItem = {
     average_salary: 85000,
     alumni_network_count: 38000,
     feature_badges: ['OPT STEM ELIGIBLE', 'ON-CAMPUS HOUSING'],
+    employment_rate: 87.5,
+    facilities: {
+      dormitory: true,
+      dining: true,
+      gym: false,
+      library: true,
+      lab: false,
+      entertainment: false,
+    },
+    esl_program: {
+      available: true,
+      description: '레벨별 과정 제공',
+    },
   },
   program: {
     id: 'program-1',
@@ -57,6 +70,9 @@ const itemWithNulls: MatchingResultItem = {
     average_salary: null,
     alumni_network_count: null,
     feature_badges: [],
+    employment_rate: null,
+    facilities: null,
+    esl_program: null,
   },
   program: {
     id: 'program-2',
@@ -92,6 +108,11 @@ describe('TopMatchDetail', () => {
     expect(screen.getByText(/#4 \(Computer Science\)/)).toBeInTheDocument()
     expect(screen.getByText('동문 네트워크')).toBeInTheDocument()
     expect(screen.getByText('38,000+')).toBeInTheDocument()
+    expect(screen.getByText('취업률')).toBeInTheDocument()
+    expect(screen.getByText('87.5%')).toBeInTheDocument()
+    expect(screen.getByText('기숙사')).toBeInTheDocument()
+    expect(screen.getAllByText('제공').length).toBeGreaterThan(0)
+    expect(screen.getByText('ESL 프로그램')).toBeInTheDocument()
   })
 
   it('배지와 버튼을 표시해야 한다', () => {
@@ -109,5 +130,28 @@ describe('TopMatchDetail', () => {
     expect(screen.getAllByText('Unknown School').length).toBeGreaterThan(0)
     expect(screen.getByText(/예상 ROI .*연간/)).toBeInTheDocument()
     expect(screen.getAllByText('N/A').length).toBeGreaterThan(0)
+  })
+
+  it('AI 추천 이유를 표시해야 한다', () => {
+    render(<TopMatchDetail item={itemWithExtras} />)
+
+    expect(screen.getByText('추천 이유')).toBeInTheDocument()
+    expect(screen.getByText('최적의 선택입니다.')).toBeInTheDocument()
+  })
+
+  it('장점과 유의 사항을 표시해야 한다', () => {
+    render(<TopMatchDetail item={itemWithExtras} />)
+
+    expect(screen.getByText('장점')).toBeInTheDocument()
+    expect(screen.getByText('장점1')).toBeInTheDocument()
+    expect(screen.getByText('유의 사항')).toBeInTheDocument()
+    expect(screen.getByText('단점1')).toBeInTheDocument()
+  })
+
+  it('장점/유의사항이 비어있으면 해당 섹션을 숨겨야 한다', () => {
+    render(<TopMatchDetail item={itemWithNulls} />)
+
+    expect(screen.queryByText('장점')).not.toBeInTheDocument()
+    expect(screen.queryByText('유의 사항')).not.toBeInTheDocument()
   })
 })

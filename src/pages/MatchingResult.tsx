@@ -95,6 +95,8 @@ function MatchingResult() {
   const reportMeta = buildReportMeta(result)
   const indicatorScores = buildIndicatorScores(topMatch)
   const executiveSummary = buildExecutiveSummary(topMatch, result.total_matches)
+  const indicatorDescription = result.indicator_description ?? matchingReportMock.indicatorDescription
+  const nextSteps = result.next_steps ?? matchingReportMock.nextSteps
 
   return (
     <BaseContainer>
@@ -167,7 +169,7 @@ function MatchingResult() {
               </div>
               <MatchingIndicatorBars
                 scores={indicatorScores}
-                description={matchingReportMock.indicatorDescription}
+                description={indicatorDescription}
               />
             </div>
           </BasePanel>
@@ -185,7 +187,7 @@ function MatchingResult() {
           </BasePanel>
         )}
 
-        <NextStepsSection steps={matchingReportMock.nextSteps} />
+        <NextStepsSection steps={nextSteps} />
 
         <ReportFooter
           footerText={matchingReportMock.footerText}
